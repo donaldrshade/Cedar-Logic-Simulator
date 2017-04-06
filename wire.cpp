@@ -23,3 +23,4 @@ string Wire::getName(){
 void Wire::setName(string n){
     name = n;
 }
+//future edit

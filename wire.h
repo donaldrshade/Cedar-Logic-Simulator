@@ -14,7 +14,7 @@
 
 enum State {HIGH, UND, LOW};
 
-class Wire(){
+class Wire{
     public:
         Wire(string n= "");
         State getState();
