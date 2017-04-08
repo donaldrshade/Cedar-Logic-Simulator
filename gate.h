@@ -12,8 +12,9 @@ Date Started: April 6, 2017
 #ifndef gate_h
 #define gate_h
 
-#include <stdio.h>
+#include <iostream>
 #include "event.h"
+#include "wire.h"
 
 class Gate {
 public:

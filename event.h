@@ -13,7 +13,8 @@ Date Started: April 6, 2017
 #define event_h
 #include "wire.h"
 
-#include <stdio.h>
+#include <iostream>
+#include <queue>
 
 class Event{
 public:
