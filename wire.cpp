@@ -1,13 +1,16 @@
-//
-//  wire.cpp
-//  HW6-Term Project
-//
-//  Created by Donald Shade on 4/6/17.
-//
-//
+/*
+Project Name: Digital Logic Simulator (Term Project)
+Contributors: Jacob Moore and Donald Shade
+Date Started: April 6, 2017
+File Name: wire.cpp
+File Purpose: To define the wire class
+Date Started: April 6, 2017
+
+
+*/
 
 #include "wire.h"
-Wire:Wire(string n= ""){
+Wire::Wire(string n= ""){
     name = n;
     state = UND;
 }

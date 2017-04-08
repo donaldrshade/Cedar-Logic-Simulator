@@ -1,12 +1,17 @@
-//
-//  main.cpp
-//  HW6-Term Project
-//
-//  Created by Donald Shade on 4/6/17.
-//
-//
+/*
+Project Name: Digital Logic Simulator (Term Project)
+Contributors: Jacob Moore and Donald Shade
+Date Started: April 6, 2017
+File Name: main.cpp
+File Purpose: To run the program 
+Date Started: April 6, 2017
+
+
+*/
 
 #include <stdio.h>
+#include "circuit.h"
+
 int main(){
     Circuit c;
     //1. parse the input file
