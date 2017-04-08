@@ -18,12 +18,18 @@ Date Started: April 6, 2017
 
 class Circuit{
 public:
-    void readCircuitDescription();
-    void readVectorFile();
+	//main code functions
+    void readCircuitDescription(string f);
+    void readVectorFile(string f);
     void simulate();
     void outputTraces();
+	//subfunctions
+	void setName(string n);
+
 private:
+	string name;
 
-}
 
-#endif /* circuit_h */
+};
+
+#endif

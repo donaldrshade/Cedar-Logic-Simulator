@@ -11,26 +11,38 @@ Date Started: April 6, 2017
 
 #include "gate.h"
 
-Gate::Gate(int d, Wire* w, int c){
+Gate::Gate(int d){
     delay = d;
-    output = w;
-    creationCount = c;
 }
-void Gate::setOutput(Wire* w){
-    output = w;
+
+void Gate::setInput1(Wire* in1) {
+	input1->setState(in1->getState());
 }
+
+void Gate::setInput2(Wire *in2) {
+	input2->setState(in2->getState());
+}
+
 void Gate::setDelay(int d){
     delay = d;
 }
+
+State Gate::getOutputState() {
+	return output->getState();
+}
+
+State Gate::getInput1State() {
+	return input1->getState();
+}
+
+State Gate::getInput2State() {
+	return input2->getState();
+}
+
 int Gate::getDelay(){
     return delay;
 }
-int Gate::getCreationCount(){
-    return creationCount;
-}
-Wire* Gate::getOutput(){
-    return output;
-}
-void Gate::createEvent(queue* q, int currentTime){
+
+void Gate::createEvent(queue<int*> q, int currentTime){
     
 }

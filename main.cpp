@@ -13,11 +13,12 @@ Date Started: April 6, 2017
 #include "circuit.h"
 
 int main(){
+	string filename;
     Circuit c;
     //1. parse the input file
-    c.readCircuitDescription();
+    c.readCircuitDescription(filename);
     //2. parse the vector file
-    c.readVectorFile();
+    c.readVectorFile(filename);
     //3. simulate the circuit
     c.simulate();
     //4. output the traces
