@@ -32,4 +32,4 @@ class Wire{
     
 };
 
-#endif /* wire_h*/
+#endif

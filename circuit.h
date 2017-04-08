@@ -24,6 +24,6 @@ public:
     void outputTraces();
 private:
 
-}
+};
 
-#endif /* circuit_h */
+#endif

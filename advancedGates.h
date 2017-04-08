@@ -14,6 +14,7 @@ Date Started: April 6, 2017
 
 #include <stdio.h>
 #include "gate.h"
+
 class Not:public Gate{
 public:
     
@@ -38,4 +39,4 @@ public:
 private:
     
 };
-#endif /* advancedGates_h */
+#endif

@@ -23,7 +23,7 @@ public:
     int getDelay();
     int getCreationCount();
     Wire* getOutput();
-    void createEvent(queue* q, int currentTime);
+    void createEvent(Queue* q, int currentTime);
     
 private:
     int delay;
@@ -32,4 +32,4 @@ private:
     
 };
 
-#endif /* gate_h */
+#endif 
