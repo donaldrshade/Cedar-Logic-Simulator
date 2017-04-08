@@ -1,33 +1,36 @@
-//
-//  Gate.cpp
-//  HW6-Term Project
-//
-//  Created by Donald Shade on 4/6/17.
-//
-//
+/*
+Project Name: Digital Logic Simulator (Term Project)
+Contributors: Jacob Moore and Donald Shade
+Date Started: April 6, 2017
+File Name: gates.cpp
+File Purpose: To define the basic gate class
+Date Started: April 6, 2017
+
+
+*/
 
 #include "gate.h"
 
-BasicGate(int d, Wire* w, int c){
+Gate::Gate(int d, Wire* w, int c){
     delay = d;
     output = w;
     creationCount = c;
 }
-void setOutput(Wire* w){
+void Gate::setOutput(Wire* w){
     output = w;
 }
-void setDelay(int d){
+void Gate::setDelay(int d){
     delay = d;
 }
-int getDelay(){
+int Gate::getDelay(){
     return delay;
 }
-int getCreationCount(){
+int Gate::getCreationCount(){
     return creationCount;
 }
-Wire* getOutput(){
+Wire* Gate::getOutput(){
     return output;
 }
-void createEvent(queue* q, int currentTime){
+void Gate::createEvent(queue* q, int currentTime){
     
 }

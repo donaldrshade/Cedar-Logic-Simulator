@@ -1,20 +1,23 @@
-//
-//  event.hpp
-//  HW6-Term Project
-//
-//  Created by Donald Shade on 4/6/17.
-//
-//
+/*
+Project Name: Digital Logic Simulator (Term Project)
+Contributors: Jacob Moore and Donald Shade
+Date Started: April 6, 2017
+File Name: event.h
+File Purpose: To create a event class
+Date Started: April 6, 2017
+
+
+*/
 
 #ifndef event_h
 #define event_h
-#incl
+#include "wire.h"
 
 #include <stdio.h>
 
-class Event(){
+class Event{
 public:
-    Event(Wire* w,int t, State s, int eventCount)
+	Event(Wire* w, int t, State s, int eventCount);
 private:
     Wire* wire;
     int t;
