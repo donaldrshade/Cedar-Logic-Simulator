@@ -24,7 +24,7 @@ public:
     int getDelay();
     int getCreationCount();
     Wire* getOutput();
-    void createEvent(Queue* q, int currentTime);
+    void createEvent(queue<int*> q, int currentTime);
     
 private:
     int delay;
