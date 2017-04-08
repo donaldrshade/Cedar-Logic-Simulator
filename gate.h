@@ -18,19 +18,22 @@ Date Started: April 6, 2017
 
 class Gate {
 public:
-    Gate(int d=0, Wire* w= NULL, int c = -1);
-    void setOutput(Wire* w);
+    Gate(int d=0);
+	void setInput1(Wire *in);
+	void setInput2(Wire *in);
     void setDelay(int d);
+	void createEvent(queue<int*> q, int currentTime);
+
     int getDelay();
     int getCreationCount();
-    Wire* getOutput();
-    void createEvent(queue<int*> q, int currentTime);
-    
-private:
+    State getOutputState();
+	State getInput1State();
+	State getInput2State();
+
+protected:
+	virtual void setOutput() = 0;
+	Wire *input1, *input2, *output;
     int delay;
-    int creationCount;
-    Wire* output;
-    
 };
 
 #endif 

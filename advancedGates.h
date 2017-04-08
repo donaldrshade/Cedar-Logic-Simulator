@@ -17,26 +17,25 @@ Date Started: April 6, 2017
 
 class Not:public Gate{
 public:
-    
-private:
-    
-};
+	Not(Wire* input = nullptr, Wire* output = nullptr);
+	void setOutput(Wire* in);};
+
 class And:public Gate{
 public:
-    
-private:
-    
+	And(Wire *in1 = nullptr, Wire *in2 = nullptr, Wire *out = nullptr);
+	void setOutput(Wire * in1, Wire * in2);
 };
+
 class Or:public Gate{
 public:
-    
-private:
-    
+	Or(Wire *in1 = nullptr, Wire *in2 = nullptr, Wire *out = nullptr);
+	void setOutput(Wire *in1, Wire *in2);
 };
+
 class Xor:public Gate{
 public:
-    
-private:
-    
+	Xor(Wire *in1 = nullptr, Wire *in2 = nullptr, Wire *out = nullptr);
+	void setOutput(Wire *in1, Wire *in2);
 };
+
 #endif
