@@ -12,7 +12,7 @@ Date Started: April 6, 2017
 #ifndef advancedGates_h
 #define advancedGates_h
 
-#include <stdio.h>
+#include <iostream>
 #include "gate.h"
 class Not:public Gate{
 public:

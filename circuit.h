@@ -12,7 +12,7 @@ Date Started: April 6, 2017
 #ifndef circuit_h
 #define circuit_h
 
-#include <stdio.h>
+#include <iostream>
 #include "gate.h"
 #include "wire.h"
 
