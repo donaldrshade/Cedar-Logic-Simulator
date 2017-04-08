@@ -32,4 +32,4 @@ private:
 
 };
 
-#endif /* circuit_h */
+#endif

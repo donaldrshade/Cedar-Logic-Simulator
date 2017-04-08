@@ -27,4 +27,4 @@ private:
     
 };
 
-#endif /* event_h */
+#endif
