@@ -12,7 +12,7 @@ Date Started: April 6, 2017
 #ifndef wire_h
 #define wire_h
 
-#include <stdio.h>
+#include <iostream>
 #include <string>
 using namespace std;
 
