@@ -19,6 +19,7 @@ Date Started: April 6, 2017
 class Event{
 public:
 	Event(Wire* w, int t, State s, int eventCount);
+	friend bool operator< (Event &e, Event &f);
 private:
     Wire* wire;
     int t;
