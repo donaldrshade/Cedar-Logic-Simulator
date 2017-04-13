@@ -29,7 +29,6 @@ public:
 private:
 	string name;
 
-
 };
 
 #endif

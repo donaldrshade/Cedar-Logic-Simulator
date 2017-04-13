@@ -35,11 +35,18 @@ void And::setOutput(Wire *in1, Wire *in2) {
 	if (in1->getState() == HIGH == in2->getState()) {
 		output->setState(HIGH);
 	}
-	if (in1->getState == LOW && in2->getState() == UND || in1->getState() == UND && in2->getState() == LOW || in1->getState() == in2->getState() == LOW) {
-		output->setState(LOW);
+	if (in1->getState == LOW || in2->getState() == LOW) {
+		if (in2->getState() == UND || in1->getState() == UND) {
+			output->setState(LOW);
+		}
+		if (in1->getState() == in2->getState() == LOW) {
+			output->setState(LOW);
+		}
 	}
-	if (in1->getState == HIGH && in2->getState() == UND || in1->getState() == UND && in2->getState() == HIGH) {
-		output->setState(UND);
+	if (in1->getState == HIGH || in2->getState() == HIGH) {
+		if (in2->getState() == UND || in1->getState() == UND) {
+			output->setState(UND);
+		}
 	}
 }
 
