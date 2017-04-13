@@ -18,7 +18,7 @@ Date Started: April 6, 2017
 
 class Gate {
 public:
-    Gate(int d=0);
+    Gate(int d=0,Wire* in1=nullptr, Wire* in2=nullptr,Wire* out=nullptr);
 	void setInput1(Wire *in);
 	void setInput2(Wire *in);
     void setDelay(int d);

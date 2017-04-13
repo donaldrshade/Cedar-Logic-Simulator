@@ -11,8 +11,11 @@ Date Started: April 6, 2017
 
 #include "gate.h"
 
-Gate::Gate(int d){
-    delay = d;
+Gate::Gate(int d, Wire* in1, Wire* in2, Wire* out){
+	delay = d;
+	input1 = in1;
+	input2 = in2;
+	output = out;
 }
 
 void Gate::setInput1(Wire* in1) {
