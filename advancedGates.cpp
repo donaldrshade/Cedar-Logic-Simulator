@@ -11,24 +11,21 @@ Date Started: April 6, 2017
 
 #include "advancedGates.h"
 
-Not::Not(Wire* in, Wire* out) {
-	input1 = in;
-	output = out;
+Not::Not(int d,Wire* in, Wire* out):Gate(d,in,NULL,out){
+	//All in Base Init
 }
 
 void Not::setOutput(Wire* in) {
 	if (in->getState() == LOW) {
-		output->setState(HIGH);
+		output->setState(HIGH);//this should be create event
 	}
 	else if (in->getState() == 1) {
 		output->setState(LOW);
 	}
 }
 
-And::And(Wire *in1, Wire *in2, Wire *out) {
-	input1 = in1;
-	input2 = in2;
-	output = out;
+And::And(int d, Wire *in1, Wire *in2, Wire *out):Gate(d,in1,in2,out) {
+	//All in Base Init
 }
 
 void And::setOutput(Wire *in1, Wire *in2) {
@@ -52,10 +49,8 @@ void And::setOutput(Wire *in1, Wire *in2) {
 	}
 }
 
-Or::Or(Wire *in1, Wire *in2, Wire *out) {
-	input1 = in1;
-	input2 = in2;
-	output = out;
+Or::Or(int d, Wire *in1, Wire *in2, Wire *out):Gate(d,in1,in2,out) {
+	//All in Base Init
 }
 
 void Or::setOutput(Wire *in1, Wire *in2) {
@@ -74,10 +69,8 @@ void Or::setOutput(Wire *in1, Wire *in2) {
 	}
 }
 
-Xor::Xor(Wire *in1, Wire *in2, Wire *out) {
-	input1 = in1;
-	input2 = in2;
-	output = out;
+Xor::Xor(int d, Wire *in1, Wire *in2, Wire *out):Gate(d,in1,in2,out){
+	//All in Base Init
 }
 
 void Xor::setOutput(Wire *in1, Wire *in2) {
@@ -85,7 +78,7 @@ void Xor::setOutput(Wire *in1, Wire *in2) {
 	State tempIn2 = in2->getState();
 	if (tempIn1 == HIGH || tempIn2 == HIGH){
 		if (tempIn1 == LOW || tempIn2 == LOW) {
-			output->setState(HIGH);
+			output->setState(HIGH);`
 		}
 	}
 	else if (tempIn1 == UND || tempIn2==UND){

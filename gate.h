@@ -22,7 +22,7 @@ public:
 	void setInput1(Wire *in);
 	void setInput2(Wire *in);
     void setDelay(int d);
-	void createEvent(queue<int*> q, int currentTime);
+	void createEvent(priority_queue<Event> q, int currentTime);
 
     int getDelay();
     State getOutputState();

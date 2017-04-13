@@ -46,6 +46,6 @@ int Gate::getDelay(){
     return delay;
 }
 
-void Gate::createEvent(queue<int*> q, int currentTime){
+void Gate::createEvent(priority_queue<Event> q, int currentTime){
     
 }

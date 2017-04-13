@@ -39,6 +39,8 @@ private:
 	int numInputs;
 	vector <Gate> gates;
 	int numOfGates;
+	std::priority_queue<Event> eventsToCome;
+	std::priority_queue<Event> history;
 };
 
 #endif
