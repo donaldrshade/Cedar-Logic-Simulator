@@ -8,32 +8,33 @@ Date Started: April 6, 2017
 
 
 */
-
 #include "circuit.h"
 #include <fstream>
 #include <iostream>
 
-
-
-Circuit::Circuit(string n){
-	name = n;
-}
-
-Circuit::Circuit(){
+Circuit::Circuit() {
 	name = "";
-	numInputWires = 0;
-	numOutputWires = 0;
+	numOfWires = 0;
+	numInputs = 0;
+	numOutputs = 0;
+	wires.push_back(Wire("NULL", 0));
+	inputWires.push_back(NULL);
+	outputWires.push_back(NULL);
 }
 
-void Circuit::readCircuitDescription(string f){
+void Circuit::readCircuitDescription(string f) {
 	string filename = f + ".txt";
 	ifstream inputFile;
 	inputFile.open(filename);
 	string input;
-	while ( getline(inputFile, input)) {
+	while (getline(inputFile, input)) {
 		string keyword = input.substr(0, input.find(" "));
 		if (keyword == "CIRCUIT") {
-			setName(input.substr(input.find(' ')+1));
+			string left = input.substr(input.find(' '));
+			while (left[0] == ' ') {
+				left = left.substr(1);
+			}
+			setName(left);
 		}
 		else if (keyword == "INPUT") {
 			//create an input
@@ -47,15 +48,17 @@ void Circuit::readCircuitDescription(string f){
 				left = left.substr(1);
 			}
 			int wireNum = stoi(left);
-			if (inputWires.size()==0) {
-				inputWires.resize(1);
-			}
-			if (inputWires.size() == numInputWires) {
-				inputWires.resize( inputWires.size()+1);
-			}
+
+
+			numOfWires++;
+			numInputs++;
 			
-			inputWires.insert(inputWires.begin()+ numInputWires, Wire(wireName,wireNum));
-			numInputWires++;
+			while (wires.size() < wireNum) {
+				wires.insert(wires.begin() + numOfWires, Wire("Internal", numOfWires));
+			}
+			wires.insert(wires.begin() + wireNum, Wire(wireName, wireNum));
+			inputWires.insert(inputWires.begin()+numInputs, &wires[numOfWires]);
+			
 
 		}
 		else if (keyword == "OUTPUT") {
@@ -70,29 +73,20 @@ void Circuit::readCircuitDescription(string f){
 				left = left.substr(1);
 			}
 			int wireNum = stoi(left);
-			if (outputWires.size() == 0) {
-				outputWires.resize(1);
-			}
-			if (outputWires.size() == numOutputWires) {
-				outputWires.resize(outputWires.size() + 1);
-			}
 
-			outputWires.insert(outputWires.begin() + numOutputWires, Wire(wireName, wireNum));
-			numOutputWires++;
-
+			numOfWires++;
+			numOutputs++;
+			while (wires.size() < wireNum) {
+				wires.insert(wires.begin() + numOfWires, Wire("Internal", numOfWires));
+			}
+			wires.insert(wires.begin()+wireNum, Wire(wireName, wireNum));			
+			outputWires.insert(outputWires.begin()+numOutputs, &wires[numOfWires]);
+			
+		
 		}
 		else if (keyword == "AND") {
 			//create a gate
-			/*
-			int delay = stoi(input.substr(input.find("ns") - 1, 1);
-			if (gates.size() == 0) {
-				gates.resize(1);
-			}
-			if (gates.size() == numOfGates) {
-				gates.resize(gates.size() + 1);
-			}
-			gates.insert(gates.begin()+numOfGates,And());
-			*/
+			
 		}
 		else if (keyword == "NAND") {
 			//create a gate

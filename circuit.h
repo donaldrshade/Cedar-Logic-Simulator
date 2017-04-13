@@ -19,7 +19,6 @@ Date Started: April 6, 2017
 
 class Circuit{
 public:
-	Circuit(string n);
 	Circuit();
 	//main code functions
     void readCircuitDescription(string f);
@@ -32,10 +31,12 @@ public:
 
 private:
 	string name;
-	vector <Wire> inputWires;
-	int numInputWires;
-	vector <Wire> outputWires;
-	int numOutputWires;
+	vector <Wire*> inputWires;
+	vector <Wire*> outputWires;
+	vector <Wire> wires;
+	int numOfWires;
+	int numOutputs;
+	int numInputs;
 	vector <Gate> gates;
 	int numOfGates;
 };
