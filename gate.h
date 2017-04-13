@@ -25,7 +25,6 @@ public:
 	void createEvent(queue<int*> q, int currentTime);
 
     int getDelay();
-    int getCreationCount();
     State getOutputState();
 	State getInput1State();
 	State getInput2State();
