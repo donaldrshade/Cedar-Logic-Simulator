@@ -18,6 +18,7 @@ Date Started: April 6, 2017
 
 class Circuit{
 public:
+	Circuit(string n);
 	//main code functions
     void readCircuitDescription(string f);
     void readVectorFile(string f);
@@ -26,8 +27,11 @@ public:
 	//subfunctions
 	void setName(string n);
 
+
 private:
 	string name;
+	Wire** inputWires;
+	int numberOfWires;
 
 
 };

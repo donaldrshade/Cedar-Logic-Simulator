@@ -10,7 +10,7 @@ Date Started: April 6, 2017
 */
 
 #include "wire.h"
-Wire::Wire(string n= ""){
+Wire::Wire(string n){
     name = n;
     state = UND;
 }

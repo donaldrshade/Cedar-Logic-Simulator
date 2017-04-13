@@ -15,6 +15,10 @@ Date Started: April 6, 2017
 
 
 
+Circuit::Circuit(string n){
+	name = n;
+}
+
 void Circuit::readCircuitDescription(string f){
 	string filename = f + ".txt";
 	ifstream inputFile;
@@ -23,10 +27,25 @@ void Circuit::readCircuitDescription(string f){
 	while ( getline(inputFile, input)) {
 		string keyword = input.substr(0, input.find(" "));
 		if (keyword == "CIRCUIT") {
-			setName(input.substr(input.find(" "), input.length()));
+			setName(input.substr(0, input.length()-input.find(' ')));
 		}
 		else if (keyword == "INPUT") {
 			//create an input
+			string left = input.substr(input.find(' '));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			string wireName = left.substr(0, left.find(' '));
+			left = left.substr(left.find(' '));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			int wireNum = stoi(left);
+			if (numberOfWires == 0) {
+				inputWires = new Wire*[];
+			}
+			*inputWires[numberOfWires] = Wire(wireName);
+			numberOfWires++;
 		}
 		else if (keyword == "OUTPUT") {
 			//create an output
