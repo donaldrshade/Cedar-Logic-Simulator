@@ -21,7 +21,8 @@ Circuit::Circuit(string n){
 
 Circuit::Circuit(){
 	name = "";
-	numberOfWires = 0;
+	numInputWires = 0;
+	numOutputWires = 0;
 }
 
 void Circuit::readCircuitDescription(string f){
@@ -32,7 +33,7 @@ void Circuit::readCircuitDescription(string f){
 	while ( getline(inputFile, input)) {
 		string keyword = input.substr(0, input.find(" "));
 		if (keyword == "CIRCUIT") {
-			setName(input.substr(0, input.length()-input.find(' ')));
+			setName(input.substr(input.find(' ')+1));
 		}
 		else if (keyword == "INPUT") {
 			//create an input
@@ -47,20 +48,51 @@ void Circuit::readCircuitDescription(string f){
 			}
 			int wireNum = stoi(left);
 			if (inputWires.size()==0) {
-				inputWires.resize(10);
+				inputWires.resize(1);
 			}
-			if (inputWires.size() == numberOfWires + 1) {
-				inputWires.resize(2 * inputWires.size());
+			if (inputWires.size() == numInputWires) {
+				inputWires.resize( inputWires.size()+1);
 			}
 			
-			inputWires.insert(inputWires.begin()+numberOfWires, Wire(wireName,wireNum));
-			numberOfWires++;
+			inputWires.insert(inputWires.begin()+ numInputWires, Wire(wireName,wireNum));
+			numInputWires++;
+
 		}
 		else if (keyword == "OUTPUT") {
 			//create an output
+			string left = input.substr(input.find(' '));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			string wireName = left.substr(0, left.find(' '));
+			left = left.substr(left.find(' '));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			int wireNum = stoi(left);
+			if (outputWires.size() == 0) {
+				outputWires.resize(1);
+			}
+			if (outputWires.size() == numOutputWires) {
+				outputWires.resize(outputWires.size() + 1);
+			}
+
+			outputWires.insert(outputWires.begin() + numOutputWires, Wire(wireName, wireNum));
+			numOutputWires++;
+
 		}
 		else if (keyword == "AND") {
 			//create a gate
+			/*
+			int delay = stoi(input.substr(input.find("ns") - 1, 1);
+			if (gates.size() == 0) {
+				gates.resize(1);
+			}
+			if (gates.size() == numOfGates) {
+				gates.resize(gates.size() + 1);
+			}
+			gates.insert(gates.begin()+numOfGates,And());
+			*/
 		}
 		else if (keyword == "NAND") {
 			//create a gate

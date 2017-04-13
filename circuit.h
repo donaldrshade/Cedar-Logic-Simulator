@@ -33,8 +33,11 @@ public:
 private:
 	string name;
 	vector <Wire> inputWires;
-	int numberOfWires;
-
+	int numInputWires;
+	vector <Wire> outputWires;
+	int numOutputWires;
+	vector <Gate> gates;
+	int numOfGates;
 };
 
 #endif
