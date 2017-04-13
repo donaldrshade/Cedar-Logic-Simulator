@@ -32,19 +32,21 @@ And::And(Wire *in1, Wire *in2, Wire *out) {
 }
 
 void And::setOutput(Wire *in1, Wire *in2) {
-	if (in1->getState() == HIGH == in2->getState()) {
+	State tempIn1 = in1->getState();
+	State tempIn2 = in2->getState();
+	if (tempIn1 == HIGH == tempIn2) {
 		output->setState(HIGH);
 	}
-	if (in1->getState == LOW || in2->getState() == LOW) {
+	if (tempIn1 == LOW || tempIn2 == LOW) {
 		if (in2->getState() == UND || in1->getState() == UND) {
 			output->setState(LOW);
 		}
-		if (in1->getState() == in2->getState() == LOW) {
+		if (tempIn1 == tempIn2 == LOW) {
 			output->setState(LOW);
 		}
 	}
-	if (in1->getState == HIGH || in2->getState() == HIGH) {
-		if (in2->getState() == UND || in1->getState() == UND) {
+	if (tempIn1 == HIGH || tempIn2 == HIGH) {
+		if (tempIn1 == UND || tempIn2 == UND) {
 			output->setState(UND);
 		}
 	}
@@ -57,13 +59,17 @@ Or::Or(Wire *in1, Wire *in2, Wire *out) {
 }
 
 void Or::setOutput(Wire *in1, Wire *in2) {
-	if (in1->getState() == HIGH || in2->getState() == HIGH) {
+	State tempIn1 = in1->getState();
+	State tempIn2 = in2->getState();
+	if (tempIn1 == HIGH || tempIn2 == HIGH) {
 		output->setState(HIGH);
 	}
-	if (in1->getState() == LOW && in2->getState() == UND || in1->getState() == UND && in2->getState == LOW) {
-		output->setState(UND);
+	if (tempIn1 == LOW || tempIn2 == LOW) {
+		if (tempIn1 == UND || tempIn2 == UND) {
+			output->setState(UND);
+		}
 	}
-	if (in1->getState() == LOW == in2->getState()) {
+	if (tempIn1 == LOW == tempIn2) {
 		output->setState(LOW);
 	}
 }
@@ -75,13 +81,17 @@ Xor::Xor(Wire *in1, Wire *in2, Wire *out) {
 }
 
 void Xor::setOutput(Wire *in1, Wire *in2) {
-	if (in1->getState() == HIGH && in2->getState == LOW || in1->getState() == LOW && in2->getState() = HIGH) {
-		output->setState(HIGH);
+	State tempIn1 = in1->getState();
+	State tempIn2 = in2->getState();
+	if (tempIn1 == HIGH || tempIn2 == HIGH){
+		if (tempIn1 == LOW || tempIn2 == LOW) {
+			output->setState(HIGH);
+		}
 	}
-	else if (in1->getState() == UND || in2->getState()==UND){
+	else if (tempIn1 == UND || tempIn2==UND){
 		output->setState(UND);
 	}
-	else if (in1->getState() == in2->getState()) {
+	else if (tempIn1 == tempIn2) {
 		output->setState(LOW);
 	}
 }

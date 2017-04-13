@@ -16,5 +16,5 @@ Event::Event(Wire * w, int t, State s, int eventCount){
 }
 
 bool operator< (Event &e, Event &f) {
-
+	return false;
 }
