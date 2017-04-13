@@ -19,6 +19,11 @@ Circuit::Circuit(string n){
 	name = n;
 }
 
+Circuit::Circuit(){
+	name = "";
+	numberOfWires = 0;
+}
+
 void Circuit::readCircuitDescription(string f){
 	string filename = f + ".txt";
 	ifstream inputFile;
@@ -41,10 +46,14 @@ void Circuit::readCircuitDescription(string f){
 				left = left.substr(1);
 			}
 			int wireNum = stoi(left);
-			if (numberOfWires == 0) {
-				inputWires = new Wire*[];
+			if (inputWires.size()==0) {
+				inputWires.resize(10);
 			}
-			*inputWires[numberOfWires] = Wire(wireName);
+			if (inputWires.size() == numberOfWires + 1) {
+				inputWires.resize(2 * inputWires.size());
+			}
+			
+			inputWires.insert(inputWires.begin()+numberOfWires, Wire(wireName,wireNum));
 			numberOfWires++;
 		}
 		else if (keyword == "OUTPUT") {

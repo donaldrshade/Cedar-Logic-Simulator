@@ -13,12 +13,14 @@ Date Started: April 6, 2017
 #define circuit_h
 
 #include <iostream>
+#include <vector>
 #include "gate.h"
 #include "wire.h"
 
 class Circuit{
 public:
 	Circuit(string n);
+	Circuit();
 	//main code functions
     void readCircuitDescription(string f);
     void readVectorFile(string f);
@@ -30,7 +32,7 @@ public:
 
 private:
 	string name;
-	Wire** inputWires;
+	vector <Wire> inputWires;
 	int numberOfWires;
 
 
