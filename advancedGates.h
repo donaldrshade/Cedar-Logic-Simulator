@@ -18,7 +18,8 @@ Date Started: April 6, 2017
 class Not:public Gate{
 public:
 	Not(Wire* input = nullptr, Wire* output = nullptr);
-	void setOutput(Wire* in);};
+	void setOutput(Wire* in);
+};
 
 class And:public Gate{
 public:

@@ -35,7 +35,6 @@ private:
 	vector <Wire> inputWires;
 	int numberOfWires;
 
-
 };
 
 #endif
