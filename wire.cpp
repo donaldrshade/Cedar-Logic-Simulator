@@ -10,8 +10,9 @@ Date Started: April 6, 2017
 */
 
 #include "wire.h"
-Wire::Wire(string n){
+Wire::Wire(string n,int num){
     name = n;
+	wireNumber = num;
     state = UND;
 }
 State Wire::getState(){
