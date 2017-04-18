@@ -78,7 +78,7 @@ void Xor::setOutput(Wire *in1, Wire *in2) {
 	State tempIn2 = in2->getState();
 	if (tempIn1 == HIGH || tempIn2 == HIGH){
 		if (tempIn1 == LOW || tempIn2 == LOW) {
-			output->setState(HIGH);`
+			output->setState(HIGH);
 		}
 	}
 	else if (tempIn1 == UND || tempIn2==UND){

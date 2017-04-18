@@ -14,8 +14,8 @@ Date Started: April 6, 2017
 
 #include <iostream>
 #include <vector>
-#include "gate.h"
-#include "wire.h"
+#include "advancedGates.h"
+
 
 class Circuit{
 public:

@@ -23,7 +23,6 @@ public:
 	void createEvent(priority_queue<Event> q, int currentTime);
 
 protected:
-	virtual void setOutput() = 0;
 	Wire *input1, *input2, *output;
     int delay;
 };
