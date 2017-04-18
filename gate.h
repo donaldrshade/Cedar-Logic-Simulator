@@ -18,16 +18,9 @@ Date Started: April 6, 2017
 
 class Gate {
 public:
-    Gate(int d=0,Wire* in1=nullptr, Wire* in2=nullptr,Wire* out=nullptr);
-	void setInput1(Wire *in);
-	void setInput2(Wire *in);
-    void setDelay(int d);
-	void createEvent(priority_queue<Event> q, int currentTime);
 
-    int getDelay();
-    State getOutputState();
-	State getInput1State();
-	State getInput2State();
+    Gate(int d=0,Wire* in1=nullptr, Wire* in2=nullptr,Wire* out=nullptr);
+	void createEvent(priority_queue<Event> q, int currentTime);
 
 protected:
 	virtual void setOutput() = 0;

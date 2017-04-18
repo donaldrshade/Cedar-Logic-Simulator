@@ -25,9 +25,10 @@ public:
 	int getTime();
 	State getState();
 	int getEventCount();
+
 private:
     Wire* wire;
-    int t;
+    int time;
     State state;
     int eventCount;
     

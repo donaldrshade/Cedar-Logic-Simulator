@@ -15,6 +15,22 @@ Event::Event(Wire * w, int t, State s, int eventCount){
 
 }
 
+Wire* Event::getWire() {
+	return wire;
+}
+
+int Event::getTime() {
+	return time;
+}
+
+State Event::getState() {
+	return state;
+}
+
+int Event::getEventCount() {
+	return eventCount;
+}
+
 bool operator< (Event &e, Event &f) {
 	return false;
 }
