@@ -18,34 +18,6 @@ Gate::Gate(int d, Wire* in1, Wire* in2, Wire* out){
 	output = out;
 }
 
-void Gate::setInput1(Wire* in1) {
-	input1->setState(in1->getState());
-}
-
-void Gate::setInput2(Wire *in2) {
-	input2->setState(in2->getState());
-}
-
-void Gate::setDelay(int d){
-    delay = d;
-}
-
-State Gate::getOutputState() {
-	return output->getState();
-}
-
-State Gate::getInput1State() {
-	return input1->getState();
-}
-
-State Gate::getInput2State() {
-	return input2->getState();
-}
-
-int Gate::getDelay(){
-    return delay;
-}
-
 void Gate::createEvent(priority_queue<Event> q, int currentTime){
     
 }
