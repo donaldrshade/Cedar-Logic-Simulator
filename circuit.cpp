@@ -17,6 +17,7 @@ Circuit::Circuit() {
 	numOfWires = 0;
 	numInputs = 0;
 	numOutputs = 0;
+	eventCount = 0;
 	wires.push_back(Wire("NULL", 0));
 	inputWires.push_back(NULL);
 	outputWires.push_back(NULL);
@@ -209,7 +210,7 @@ void Circuit::readCircuitDescription(string f) {
 			output = left.substr(0, left.find(' '));
 			gates.push_back(Nor(d, &wires[stoi(input1)], &wires[stoi(input2)], &wires[stoi(output)]));
 		}
-		/*else if (keyword == "XNOR") {
+		else if (keyword == "XNOR") {
 			string left = input.substr(input.find(' '));
 			while (left.find(' ') == 0) {
 				left = left.substr(1);
@@ -233,7 +234,7 @@ void Circuit::readCircuitDescription(string f) {
 			}
 			output = left.substr(0, left.find(' '));
 			gates.push_back(Xnor(d, &wires[stoi(input1)], &wires[stoi(input2)], &wires[stoi(output)]));
-		}*/
+		}
 		else if (keyword == "NOT") {
 			string left = input.substr(input.find(' '));
 			while (left.find(' ') == 0) {
@@ -255,10 +256,47 @@ void Circuit::readCircuitDescription(string f) {
 			gates.push_back(Not(d, &wires[stoi(input1)],&wires[stoi(output)]));
 		}
 	}
+	inputFile.close();
 }
 
 void Circuit::readVectorFile(string f){
 	string filename = f + "_v.txt";
+	ifstream inputFile;
+	inputFile.open(filename);
+	string input;
+	while (getline(inputFile, input)) {
+		string keyword = input.substr(0, input.find(" "));
+		if (keyword == "INPUT") {
+			string left = input.substr(input.find(' '));
+			while (left[0] == ' ') {
+				left = left.substr(1);
+			}
+			string wireName = left.substr(0, left.find(" "));
+			left = input.substr(input.find(' '));
+			while (left[0] == ' ') {
+				left = left.substr(1);
+			}
+			string time = left.substr(0, left.find(" "));
+			left = input.substr(input.find(' '));
+			while (left[0] == ' ') {
+				left = left.substr(1);
+			}
+			string state = left.substr(0, left.find(" "));
+			left = input.substr(input.find(' '));
+			int wireNum = 0;
+			while (wires[wireNum].getName() != wireName) {
+				wireNum++;
+			}
+			State s = UND;
+			if (state == "0") {
+				s = LOW;
+			}
+			if (state == "1") {
+				s = HIGH;
+			}
+			eventsToCome.push(Event(&wires[wireNum], stoi(time), s, eventCount));
+		}
+	}
 }
 
 void Circuit::simulate(){

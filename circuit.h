@@ -41,6 +41,7 @@ private:
 	int numOfGates;
 	std::priority_queue<Event> eventsToCome;
 	std::priority_queue<Event> history;
+	int eventCount;
 };
 
 #endif

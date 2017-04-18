@@ -54,6 +54,6 @@ public:
 class Xnor :public Gate {
 public:
 	Xnor(int d, Wire *in1, Wire *in2, Wire *out);
-	void setOutput();
+	void setOutput(Wire *in1, Wire *in2);
 };
 #endif

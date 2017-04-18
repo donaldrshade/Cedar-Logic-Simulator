@@ -89,6 +89,27 @@ void Xor::setOutput(Wire *in1, Wire *in2) {
 	}
 }
 
+Xnor::Xnor(int d, Wire *in1, Wire *in2, Wire *out) :Gate(d, in1, in2, out) {
+	//All in Base Init
+}
+
+void Xnor::setOutput(Wire *in1, Wire *in2) {
+	State tempIn1 = in1->getState();
+	State tempIn2 = in2->getState();
+	if (tempIn1 == HIGH || tempIn2 == HIGH) {
+		if (tempIn1 == LOW || tempIn2 == LOW) {
+			output->setState(LOW);
+		}
+	}
+	else if (tempIn1 == UND || tempIn2 == UND) {
+		output->setState(UND);
+	}
+	else if (tempIn1 == tempIn2 && tempIn1 != UND) {
+		output->setState(HIGH);
+	}
+}
+
+
 Nand::Nand(int d, Wire *in1, Wire *in2, Wire *out):Gate(d,in1,in2,out) {
 	//All in Base Init
 }
