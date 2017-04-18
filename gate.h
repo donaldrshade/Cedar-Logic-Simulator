@@ -20,10 +20,11 @@ class Gate {
 public:
 
     Gate(int d=0,Wire* in1=nullptr, Wire* in2=nullptr,Wire* out=nullptr);
-	void createEvent(priority_queue<Event> q, int currentTime);
+	void createEvent(priority_queue<Event> &q, int currentTime);
 
 protected:
 	Wire *input1, *input2, *output;
+	State out;
     int delay;
 };
 

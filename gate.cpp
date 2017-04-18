@@ -11,13 +11,14 @@ Date Started: April 6, 2017
 
 #include "gate.h"
 
-Gate::Gate(int d, Wire* in1, Wire* in2, Wire* out){
+Gate::Gate(int d, Wire* in1, Wire* in2, Wire* o){
 	delay = d;
 	input1 = in1;
 	input2 = in2;
-	output = out;
+	output = o;
+	out = UND;
 }
 
-void Gate::createEvent(priority_queue<Event> q, int currentTime){
+void Gate::createEvent(priority_queue<Event> &q, int currentTime){
     
 }

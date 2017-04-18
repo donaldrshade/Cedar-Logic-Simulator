@@ -96,11 +96,13 @@ void Circuit::readCircuitDescription(string f) {
 				left = left.substr(1);
 			}
 			string input1, input2,output;
-			input1 = left.substr(0, left.find(' '));
+			input1 = left.substr(0,left.find(' '));
+			left = left.substr(left.find(" "));
 			while (left.find(' ') == 0) {
 				left = left.substr(1);
 			}
-			input2 = left.substr(0, left.find(' '));
+			input2 = left.substr(0,left.find(' '));
+			left = left.substr(left.find(" "));
 			while (left.find(' ') == 0) {
 				left = left.substr(1);
 			}
@@ -108,22 +110,149 @@ void Circuit::readCircuitDescription(string f) {
 			gates.push_back(And(d, &wires[stoi(input1)], &wires[stoi(input2)], &wires[stoi(output)]));
 		}
 		else if (keyword == "NAND") {
-			//create a gate
+			string left = input.substr(input.find(' '));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			string delay = left.substr(0, left.find("ns"));
+			int d = stoi(delay);
+			left = left.substr(left.find(' '));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			string input1, input2, output;
+			input1 = left.substr(0, left.find(' '));
+			left = left.substr(left.find(" "));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			input2 = left.substr(0, left.find(' '));
+			left = left.substr(left.find(" "));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			output = left.substr(0, left.find(' '));
+			gates.push_back(Nand(d, &wires[stoi(input1)], &wires[stoi(input2)], &wires[stoi(output)]));
 		}
 		else if (keyword == "OR") {
-			//create a gate
+			string left = input.substr(input.find(' '));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			string delay = left.substr(0, left.find("ns"));
+			int d = stoi(delay);
+			left = left.substr(left.find(' '));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			string input1, input2, output;
+			input1 = left.substr(0, left.find(' '));
+			left = left.substr(left.find(" "));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			input2 = left.substr(0, left.find(' '));
+			left = left.substr(left.find(" "));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			output = left.substr(0, left.find(' '));
+			gates.push_back(Or(d, &wires[stoi(input1)], &wires[stoi(input2)], &wires[stoi(output)]));
 		}
 		else if (keyword == "NOR") {
-			//create a gate
+			string left = input.substr(input.find(' '));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			string delay = left.substr(0, left.find("ns"));
+			int d = stoi(delay);
+			left = left.substr(left.find(' '));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			string input1, input2, output;
+			input1 = left.substr(0, left.find(' '));
+			left = left.substr(left.find(" "));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			input2 = left.substr(0, left.find(' '));
+			left = left.substr(left.find(" "));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			output = left.substr(0, left.find(' '));
+			gates.push_back(Nor(d, &wires[stoi(input1)], &wires[stoi(input2)], &wires[stoi(output)]));
 		}
 		else if (keyword == "XOR") {
-			//create a gate
+			string left = input.substr(input.find(' '));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			string delay = left.substr(0, left.find("ns"));
+			int d = stoi(delay);
+			left = left.substr(left.find(' '));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			string input1, input2, output;
+			input1 = left.substr(0, left.find(' '));
+			left = left.substr(left.find(" "));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			input2 = left.substr(0, left.find(' '));
+			left = left.substr(left.find(" "));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			output = left.substr(0, left.find(' '));
+			gates.push_back(Nor(d, &wires[stoi(input1)], &wires[stoi(input2)], &wires[stoi(output)]));
 		}
-		else if (keyword == "XNOR") {
-			//create a gate
-		}
+		/*else if (keyword == "XNOR") {
+			string left = input.substr(input.find(' '));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			string delay = left.substr(0, left.find("ns"));
+			int d = stoi(delay);
+			left = left.substr(left.find(' '));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			string input1, input2, output;
+			input1 = left.substr(0, left.find(' '));
+			left = left.substr(left.find(" "));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			input2 = left.substr(0, left.find(' '));
+			left = left.substr(left.find(" "));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			output = left.substr(0, left.find(' '));
+			gates.push_back(Xnor(d, &wires[stoi(input1)], &wires[stoi(input2)], &wires[stoi(output)]));
+		}*/
 		else if (keyword == "NOT") {
-			//create a gate
+			string left = input.substr(input.find(' '));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			string delay = left.substr(0, left.find("ns"));
+			int d = stoi(delay);
+			left = left.substr(left.find(' '));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			string input1, input2, output;
+			input1 = left.substr(0, left.find(' '));
+			left = left.substr(left.find(" "));
+			while (left.find(' ') == 0) {
+				left = left.substr(1);
+			}
+			output = left.substr(0, left.find(' '));
+			gates.push_back(Not(d, &wires[stoi(input1)],&wires[stoi(output)]));
 		}
 	}
 }
