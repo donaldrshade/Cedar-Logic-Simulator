@@ -31,6 +31,15 @@ int Event::getEventCount() {
 	return eventCount;
 }
 
-bool operator< (Event &e, Event &f) {
-	return false;
+bool operator< (Event const e, Event const f) {
+	bool isTrue = true;
+	if (e.time > f.time) {
+		isTrue = false;
+	}
+	else if (e.eventCount > f.eventCount) {
+		isTrue = false;
+	}
+	return isTrue;
+
 }
+

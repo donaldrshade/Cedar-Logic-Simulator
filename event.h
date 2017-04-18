@@ -25,7 +25,8 @@ public:
 	int getTime();
 	State getState();
 	int getEventCount();
-
+	bool friend operator<  (Event const e, Event const f);
+	
 private:
     Wire* wire;
     int time;
