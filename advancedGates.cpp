@@ -31,14 +31,14 @@ And::And(int d, Wire *in1, Wire *in2, Wire *out):Gate(d,in1,in2,out) {
 void And::setOutput(Wire *in1, Wire *in2) {
 	State tempIn1 = in1->getState();
 	State tempIn2 = in2->getState();
-	if (tempIn1 == HIGH == tempIn2) {
+	if (tempIn1 == HIGH && tempIn2 == HIGH) {
 		output->setState(HIGH);
 	}
 	if (tempIn1 == LOW || tempIn2 == LOW) {
 		if (in2->getState() == UND || in1->getState() == UND) {
 			output->setState(LOW);
 		}
-		if (tempIn1 == tempIn2 == LOW) {
+		if (tempIn1 == LOW || tempIn2==LOW) {
 			output->setState(LOW);
 		}
 	}
@@ -64,7 +64,7 @@ void Or::setOutput(Wire *in1, Wire *in2) {
 			output->setState(UND);
 		}
 	}
-	if (tempIn1 == LOW == tempIn2) {
+	if (tempIn1 == LOW && tempIn2==LOW) {
 		output->setState(LOW);
 	}
 }
@@ -78,13 +78,43 @@ void Xor::setOutput(Wire *in1, Wire *in2) {
 	State tempIn2 = in2->getState();
 	if (tempIn1 == HIGH || tempIn2 == HIGH){
 		if (tempIn1 == LOW || tempIn2 == LOW) {
-			output->setState(HIGH);`
+			output->setState(HIGH);
 		}
 	}
 	else if (tempIn1 == UND || tempIn2==UND){
 		output->setState(UND);
 	}
-	else if (tempIn1 == tempIn2) {
+	else if (tempIn1 == tempIn2 && tempIn1 != UND) {
 		output->setState(LOW);
+	}
+}
+
+Nand::Nand(int d, Wire *in1, Wire *in2, Wire *out):Gate(d,in1,in2,out) {
+	//All in Base Init
+}
+
+void Nand::setOutput(Wire *in1, Wire *in2) {
+	State tempIn1 = in1->getState();
+	State tempIn2 = in2->getState();
+	if (tempIn1 == LOW || tempIn2 == LOW) {
+		output->setState(HIGH);
+	}
+	else {
+		output->setState(LOW);
+	}
+}
+
+Nor::Nor(int d, Wire *in1, Wire *in2, Wire *out):Gate(d,in1,in2,out) {
+	//All in Base Init
+}
+
+void Nor::setOutput(Wire *in1, Wire *in2) {
+	State tempIn1 = in1->getState();
+	State tempIn2 = in2->getState();
+	if (tempIn1 == HIGH || tempIn2 == HIGH) {
+		output->setState(LOW);
+	}
+	else {
+		output->setState(HIGH);
 	}
 }

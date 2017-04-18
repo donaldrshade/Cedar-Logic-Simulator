@@ -17,26 +17,43 @@ Date Started: April 6, 2017
 
 class Not:public Gate{
 public:
-	Not(int d, Wire* input = nullptr, Wire* output = nullptr);
+	Not(int d, Wire* input, Wire* output);
 	void setOutput(Wire* in);
 };
 
 class And:public Gate{
 public:
-	And(int d, Wire *in1 = nullptr, Wire *in2 = nullptr, Wire *out = nullptr);
+	And(int d, Wire *in1, Wire *in2, Wire *out);
 	void setOutput(Wire * in1, Wire * in2);
 };
 
 class Or:public Gate{
 public:
-	Or(int d, Wire *in1 = nullptr, Wire *in2 = nullptr, Wire *out = nullptr);
+	Or(int d, Wire *in1, Wire *in2, Wire *out);
 	void setOutput(Wire *in1, Wire *in2);
 };
 
 class Xor:public Gate{
 public:
-	Xor(int d, Wire *in1 = nullptr, Wire *in2 = nullptr, Wire *out = nullptr);
+	Xor(int d, Wire *in1, Wire *in2, Wire *out);
 	void setOutput(Wire *in1, Wire *in2);
 };
 
+class Nand :public Gate {
+public:
+	Nand(int d, Wire *in1, Wire *in2, Wire *out);
+	void setOutput(Wire *in1, Wire *in2);
+};
+
+class Nor :public Gate {
+public:
+	Nor(int d, Wire *in1, Wire *in2, Wire *out);
+	void setOutput(Wire *in1, Wire *in2);
+};
+
+class Xnor :public Gate {
+public:
+	Xnor(int d, Wire *in1, Wire *in2, Wire *out);
+	void setOutput();
+};
 #endif
