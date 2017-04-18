@@ -20,6 +20,11 @@ using namespace std;
 class Event{
 public:
 	Event(Wire* w, int t, State s, int eventCount);
+	
+	Wire* getWire();
+	int getTime();
+	State getState();
+	int getEventCount();
 private:
     Wire* wire;
     int t;
