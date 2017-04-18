@@ -10,17 +10,13 @@ Date Started: April 6, 2017
 */
 #include "circuit.h"
 #include <fstream>
-#include <iostream>
 
 Circuit::Circuit() {
 	name = "";
-	numOfWires = 0;
-	numInputs = 0;
-	numOutputs = 0;
 	eventCount = 0;
-	wires.push_back(Wire("NULL", 0));
-	inputWires.push_back(NULL);
-	outputWires.push_back(NULL);
+	wires[0] = Wire("NULL",0);
+	inputWires["0"] = NULL;
+	outputWires["0"] = NULL;
 }
 
 void Circuit::readCircuitDescription(string f) {
@@ -50,15 +46,9 @@ void Circuit::readCircuitDescription(string f) {
 			}
 			int wireNum = stoi(left);
 
-
-			numOfWires++;
-			numInputs++;
+			wires[wireNum] = Wire(wireName, wireNum);
+			inputWires[wireName] = &wires[wireNum];
 			
-			while (wires.size() < wireNum) {
-				wires.insert(wires.begin() + numOfWires, Wire("Internal", numOfWires));
-			}
-			wires.insert(wires.begin() + wireNum, Wire(wireName, wireNum));
-			inputWires.insert(inputWires.begin()+numInputs, &wires[numOfWires]);
 			
 
 		}
@@ -75,14 +65,8 @@ void Circuit::readCircuitDescription(string f) {
 			}
 			int wireNum = stoi(left);
 
-			numOfWires++;
-			numOutputs++;
-			while (wires.size() < wireNum) {
-				wires.insert(wires.begin() + numOfWires, Wire("Internal", numOfWires));
-			}
-			wires.insert(wires.begin()+wireNum, Wire(wireName, wireNum));			
-			outputWires.insert(outputWires.begin()+numOutputs, &wires[numOfWires]);
-			
+			wires[wireNum] = Wire(wireName, wireNum);
+			outputWires[wireName] = &wires[wireNum];
 		
 		}
 		else if (keyword == "AND") {

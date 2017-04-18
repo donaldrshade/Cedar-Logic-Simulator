@@ -14,6 +14,7 @@ Date Started: April 6, 2017
 
 #include <iostream>
 #include <vector>
+#include <map>
 #include "advancedGates.h"
 
 
@@ -31,14 +32,10 @@ public:
 
 private:
 	string name;
-	vector <Wire*> inputWires;
-	vector <Wire*> outputWires;
-	vector <Wire> wires;
-	int numOfWires;
-	int numOutputs;
-	int numInputs;
+	map <string, Wire*> inputWires;
+	map <string,Wire*> outputWires;
+	map <int ,Wire> wires;
 	vector <Gate> gates;
-	int numOfGates;
 	std::priority_queue<Event> eventsToCome;
 	std::priority_queue<Event> history;
 	int eventCount;
