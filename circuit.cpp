@@ -245,10 +245,10 @@ void Circuit::readCircuitDescription(string f) {
 
 void Circuit::readVectorFile(string f){
 	string filename = f + "_v.txt";
-	ifstream inputFile;
-	inputFile.open(filename);
+	ifstream vectorFile;
+	vectorFile.open(filename);
 	string input;
-	while (getline(inputFile, input)) {
+	while (getline(vectorFile, input)) {
 		string keyword = input.substr(0, input.find(" "));
 		if (keyword == "INPUT") {
 			string left = input.substr(input.find(' '));
