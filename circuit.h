@@ -33,8 +33,8 @@ public:
 private:
 	string name;
 	map <string, Wire*> inputWires;
-	map <string,Wire*> outputWires;
-	map <int ,Wire> wires;
+	map <string, Wire*> outputWires;
+	map <int,    Wire>  wires;
 	vector <Gate> gates;
 	std::priority_queue<Event> eventsToCome;
 	std::priority_queue<Event> history;
