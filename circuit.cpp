@@ -28,41 +28,29 @@ void Circuit::readCircuitDescription(string f) {
 		string keyword = input.substr(0, input.find(" "));
 		if (keyword == "CIRCUIT") {
 			string left = input.substr(input.find(' '));
-			while (left[0] == ' ') {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			setName(left);
 		}
 		else if (keyword == "INPUT") {
 			//create an input
 			string left = input.substr(input.find(' '));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			string wireName = left.substr(0, left.find(' '));
 			left = left.substr(left.find(' '));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			int wireNum = stoi(left);
 
 			wires[wireNum] = Wire(wireName, wireNum);
 			inputWires[wireName] = &wires[wireNum];
-			
-			
 
 		}
 		else if (keyword == "OUTPUT") {
 			//create an output
 			string left = input.substr(input.find(' '));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			string wireName = left.substr(0, left.find(' '));
 			left = left.substr(left.find(' '));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			int wireNum = stoi(left);
 
 			wires[wireNum] = Wire(wireName, wireNum);
@@ -71,189 +59,132 @@ void Circuit::readCircuitDescription(string f) {
 		}
 		else if (keyword == "AND") {
 			string left = input.substr(input.find(' '));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			string delay = left.substr(0, left.find("ns"));
 			int d = stoi(delay);
 			left = left.substr(left.find(' '));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			string input1, input2,output;
 			input1 = left.substr(0,left.find(' '));
 			left = left.substr(left.find(" "));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			input2 = left.substr(0,left.find(' '));
 			left = left.substr(left.find(" "));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			output = left.substr(0, left.find(' '));
-			/*try {
-				Wire test = wires.at(stoi(input1));
-			}
-			catch(std::out_of_range){
-				wires[stoi(input1)] = Wire("Internal", stoi(input1));
-			}
-			try {
-				Wire test = wires.at(stoi(input2));
-			}
-			catch (std::out_of_range) {
-				wires[stoi(input2)] = Wire("Internal", stoi(input2));
-			}
-			try {
-				Wire test = wires.at(stoi(output));
-			}
-			catch (std::out_of_range) {
-				wires[stoi(output)] = Wire("Internal", stoi(output));
-			}*/
+			checkForWire(stoi(input1));
+			checkForWire(stoi(input2));
+			checkForWire(stoi(output));
 			gates.push_back(And(d, &wires[stoi(input1)], &wires[stoi(input2)], &wires[stoi(output)]));
 		}
 		else if (keyword == "NAND") {
 			string left = input.substr(input.find(' '));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			string delay = left.substr(0, left.find("ns"));
 			int d = stoi(delay);
 			left = left.substr(left.find(' '));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			string input1, input2, output;
 			input1 = left.substr(0, left.find(' '));
 			left = left.substr(left.find(" "));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			input2 = left.substr(0, left.find(' '));
 			left = left.substr(left.find(" "));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			output = left.substr(0, left.find(' '));
+			checkForWire(stoi(input1));
+			checkForWire(stoi(input2));
+			checkForWire(stoi(output));
 			gates.push_back(Nand(d, &wires[stoi(input1)], &wires[stoi(input2)], &wires[stoi(output)]));
 		}
 		else if (keyword == "OR") {
 			string left = input.substr(input.find(' '));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			string delay = left.substr(0, left.find("ns"));
 			int d = stoi(delay);
 			left = left.substr(left.find(' '));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			string input1, input2, output;
 			input1 = left.substr(0, left.find(' '));
 			left = left.substr(left.find(" "));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			input2 = left.substr(0, left.find(' '));
 			left = left.substr(left.find(" "));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			output = left.substr(0, left.find(' '));
+			checkForWire(stoi(input1));
+			checkForWire(stoi(input2));
+			checkForWire(stoi(output));
 			gates.push_back(Or(d, &wires[stoi(input1)], &wires[stoi(input2)], &wires[stoi(output)]));
 		}
 		else if (keyword == "NOR") {
 			string left = input.substr(input.find(' '));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			string delay = left.substr(0, left.find("ns"));
 			int d = stoi(delay);
 			left = left.substr(left.find(' '));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			string input1, input2, output;
 			input1 = left.substr(0, left.find(' '));
 			left = left.substr(left.find(" "));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			input2 = left.substr(0, left.find(' '));
 			left = left.substr(left.find(" "));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			output = left.substr(0, left.find(' '));
 			gates.push_back(Nor(d, &wires[stoi(input1)], &wires[stoi(input2)], &wires[stoi(output)]));
 		}
 		else if (keyword == "XOR") {
 			string left = input.substr(input.find(' '));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			string delay = left.substr(0, left.find("ns"));
 			int d = stoi(delay);
 			left = left.substr(left.find(' '));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			string input1, input2, output;
 			input1 = left.substr(0, left.find(' '));
 			left = left.substr(left.find(" "));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			input2 = left.substr(0, left.find(' '));
 			left = left.substr(left.find(" "));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			output = left.substr(0, left.find(' '));
+			checkForWire(stoi(input1));
+			checkForWire(stoi(input2));
+			checkForWire(stoi(output));
 			gates.push_back(Nor(d, &wires[stoi(input1)], &wires[stoi(input2)], &wires[stoi(output)]));
 		}
 		else if (keyword == "XNOR") {
 			string left = input.substr(input.find(' '));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			string delay = left.substr(0, left.find("ns"));
 			int d = stoi(delay);
 			left = left.substr(left.find(' '));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			string input1, input2, output;
 			input1 = left.substr(0, left.find(' '));
 			left = left.substr(left.find(" "));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			input2 = left.substr(0, left.find(' '));
 			left = left.substr(left.find(" "));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			output = left.substr(0, left.find(' '));
+			checkForWire(stoi(input1));
+			checkForWire(stoi(input2));
+			checkForWire(stoi(output));
 			gates.push_back(Xnor(d, &wires[stoi(input1)], &wires[stoi(input2)], &wires[stoi(output)]));
 		}
 		else if (keyword == "NOT") {
 			string left = input.substr(input.find(' '));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			string delay = left.substr(0, left.find("ns"));
 			int d = stoi(delay);
 			left = left.substr(left.find(' '));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			string input1, input2, output;
 			input1 = left.substr(0, left.find(' '));
 			left = left.substr(left.find(" "));
-			while (left.find(' ') == 0) {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			output = left.substr(0, left.find(' '));
 			try {
 				Wire test = wires.at(stoi(input1));
@@ -261,12 +192,8 @@ void Circuit::readCircuitDescription(string f) {
 			catch (std::out_of_range) {
 				wires[stoi(input1)] = Wire("Internal", stoi(input1));
 			}
-			try {
-				Wire test = wires.at(stoi(output));
-			}
-			catch (std::out_of_range) {
-				wires[stoi(output)] = Wire("Internal", stoi(output));
-			}
+			checkForWire(stoi(input1));
+			checkForWire(stoi(output));
 			gates.push_back(Not(d, &wires[stoi(input1)],&wires[stoi(output)]));
 		}
 	}
@@ -323,4 +250,23 @@ void Circuit::outputTraces(){
 
 void Circuit::setName(string n){
 	name = n;
+}
+
+void Circuit::cleanString(string & s){
+	while (s[0] == ' ') {
+		s = s.substr(1);
+	}
+}
+
+void Circuit::checkForWire(int s){
+	try {
+		Wire test = wires.at(s);
+	}
+	catch (std::out_of_range) {
+		wires[s] = Wire("Internal", s);
+	}
+}
+
+void Circuit::parseString(string input, string * s, int args){
+
 }

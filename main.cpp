@@ -13,7 +13,7 @@ Date Started: April 6, 2017
 #include "circuit.h"
 
 int main(){
-	string filename = "test";
+	string filename = "circuit0";
     Circuit c;
     //1. parse the input file
     c.readCircuitDescription(filename);

@@ -39,6 +39,10 @@ private:
 	std::priority_queue <Event> eventsToCome;
 	std::priority_queue <Event> history;
 	int eventCount;
+	//private functions to be used inside of other functions
+	void cleanString(string &s);
+	void checkForWire(int s);
+	void parseString(string input, string* s, int args);
 };
 
 #endif
