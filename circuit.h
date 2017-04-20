@@ -36,8 +36,8 @@ private:
 	map <string, Wire*> outputWires;
 	map <int,    Wire>  wires;
 	vector <Gate> gates;
-	std::priority_queue<Event> eventsToCome;
-	std::priority_queue<Event> history;
+	std::priority_queue <Event> eventsToCome;
+	std::priority_queue <Event> history;
 	int eventCount;
 };
 

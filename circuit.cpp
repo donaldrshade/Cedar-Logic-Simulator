@@ -13,7 +13,7 @@ Date Started: April 6, 2017
 
 Circuit::Circuit() {
 	name = "";
-	eventCount = 0;
+	eventCount = 1;
 	wires[0] = Wire("NULL",0);
 	inputWires["0"] = NULL;
 	outputWires["0"] = NULL;
@@ -92,6 +92,24 @@ void Circuit::readCircuitDescription(string f) {
 				left = left.substr(1);
 			}
 			output = left.substr(0, left.find(' '));
+			/*try {
+				Wire test = wires.at(stoi(input1));
+			}
+			catch(std::out_of_range){
+				wires[stoi(input1)] = Wire("Internal", stoi(input1));
+			}
+			try {
+				Wire test = wires.at(stoi(input2));
+			}
+			catch (std::out_of_range) {
+				wires[stoi(input2)] = Wire("Internal", stoi(input2));
+			}
+			try {
+				Wire test = wires.at(stoi(output));
+			}
+			catch (std::out_of_range) {
+				wires[stoi(output)] = Wire("Internal", stoi(output));
+			}*/
 			gates.push_back(And(d, &wires[stoi(input1)], &wires[stoi(input2)], &wires[stoi(output)]));
 		}
 		else if (keyword == "NAND") {
@@ -237,6 +255,18 @@ void Circuit::readCircuitDescription(string f) {
 				left = left.substr(1);
 			}
 			output = left.substr(0, left.find(' '));
+			try {
+				Wire test = wires.at(stoi(input1));
+			}
+			catch (std::out_of_range) {
+				wires[stoi(input1)] = Wire("Internal", stoi(input1));
+			}
+			try {
+				Wire test = wires.at(stoi(output));
+			}
+			catch (std::out_of_range) {
+				wires[stoi(output)] = Wire("Internal", stoi(output));
+			}
 			gates.push_back(Not(d, &wires[stoi(input1)],&wires[stoi(output)]));
 		}
 	}
@@ -256,17 +286,16 @@ void Circuit::readVectorFile(string f){
 				left = left.substr(1);
 			}
 			string wireName = left.substr(0, left.find(" "));
-			left = input.substr(input.find(' '));
+			left = left.substr(left.find(' '));
 			while (left[0] == ' ') {
 				left = left.substr(1);
 			}
 			string time = left.substr(0, left.find(" "));
-			left = input.substr(input.find(' '));
+			left = left.substr(left.find(' '));
 			while (left[0] == ' ') {
 				left = left.substr(1);
 			}
 			string state = left.substr(0, left.find(" "));
-			left = input.substr(input.find(' '));
 			int wireNum = 0;
 			while (wires[wireNum].getName() != wireName) {
 				wireNum++;
@@ -279,6 +308,7 @@ void Circuit::readVectorFile(string f){
 				s = HIGH;
 			}
 			eventsToCome.push(Event(&wires[wireNum], stoi(time), s, eventCount));
+			eventCount++;
 		}
 	}
 }

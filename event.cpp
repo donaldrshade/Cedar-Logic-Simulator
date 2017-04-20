@@ -11,8 +11,11 @@ Date Started: April 6, 2017
 
 #include "event.h"
 
-Event::Event(Wire * w, int t, State s, int eventCount){
-
+Event::Event(Wire * w, int t, State s, int e){
+	wire = w;
+	time = t;
+	state = s;
+	eventCount = e;
 }
 
 Wire* Event::getWire() {
@@ -33,10 +36,10 @@ int Event::getEventCount() {
 
 bool operator< (Event const e, Event const f) {
 	bool isTrue = true;
-	if (e.time > f.time) {
+	if (e.time < f.time) {
 		isTrue = false;
 	}
-	else if (e.eventCount > f.eventCount) {
+	else if (e.eventCount < f.eventCount) {
 		isTrue = false;
 	}
 	return isTrue;

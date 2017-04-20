@@ -19,7 +19,7 @@ using namespace std;
 
 class Event{
 public:
-	Event(Wire* w, int t, State s, int eventCount);
+	Event(Wire* w=NULL, int t=0, State s=UND, int eventCount=0);
 	
 	Wire* getWire();
 	int getTime();
