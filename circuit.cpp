@@ -162,27 +162,20 @@ void Circuit::readVectorFile(string f){
 
 void Circuit::simulate(){
 	int time;
-	bool done = false;
-	for (time = 0; time < 61&& !done; time++) {
-		while ((eventsToCome.top()).getTime() == time) {
+	for (time = 0; time < 61; time++) {
+		while (!eventsToCome.empty() && (eventsToCome.top()).getTime() == time) {
 			Event e = eventsToCome.top();
 			Wire* w = e.getWire();
 			State s = e.getState();
 			w->setState(s);
 			history.push(e);
 			eventsToCome.pop();
-			for (std::vector<Gate>::iterator i = gates.begin();i != gates.end();i++) {
-				i->checkForUpdate(eventsToCome, time, eventCount);
+			for (int i=0;i < gates.size();i++) {
+				gates[i].checkForUpdate(eventsToCome, time, eventCount);
 			}
 		}
 		for (std::map<int, Wire>::iterator i = wires.begin();i != wires.end();++i) {
 			wires[i->first].updateHistory();
-		}
-		for (std::vector<Gate>::iterator i = gates.begin();i != gates.end();i++) {
-			i->checkForUpdate(eventsToCome, time, eventCount);
-		}
-		if (eventsToCome.empty()) {
-			done = true;
 		}
 	}
 }
