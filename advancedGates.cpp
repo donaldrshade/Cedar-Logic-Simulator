@@ -15,12 +15,22 @@ Not::Not(int d,Wire* in, Wire* out):Gate(d,in,NULL,out){
 	//All in Base Init
 }
 
-void Not::setOutput(Wire* in) {
-	if (in->getState() == LOW) {
-		output->setState(HIGH);//this should be create event
+void Not::checkForUpdate(priority_queue<Event> &q, int currentTime, int &eventCount) {
+	if (input1->getState() == LOW && out != LOW) {
+		q.push(Event(output, currentTime + delay, HIGH, eventCount+1));
+		eventCount++;
+		out = HIGH;
+
 	}
-	else if (in->getState() == 1) {
-		output->setState(LOW);
+	else if (input1->getState() == HIGH && out != HIGH) {
+		q.push(Event(output, currentTime + delay, LOW,eventCount+1));
+		eventCount++;
+		out = LOW;
+	}
+	else if (input1->getState() == UND && out != UND) {
+		q.push(Event(output, currentTime + delay, UND, eventCount+1));
+		eventCount++;
+		out = UND;
 	}
 }
 
@@ -28,23 +38,26 @@ And::And(int d, Wire *in1, Wire *in2, Wire *out):Gate(d,in1,in2,out) {
 	//All in Base Init
 }
 
-void And::setOutput(Wire *in1, Wire *in2) {
-	State tempIn1 = in1->getState();
-	State tempIn2 = in2->getState();
-	if (tempIn1 == HIGH && tempIn2 == HIGH) {
-		output->setState(HIGH);
-	}
-	if (tempIn1 == LOW || tempIn2 == LOW) {
-		if (in2->getState() == UND || in1->getState() == UND) {
-			output->setState(LOW);
-		}
-		if (tempIn1 == LOW || tempIn2==LOW) {
-			output->setState(LOW);
+void And::checkForUpdate(priority_queue<Event>& q, int currentTime, int &eventCount){
+	if (input1->getState() == HIGH && input2->getState() == HIGH) {
+		if (out != HIGH) {
+			q.push(Event(output, currentTime + delay, HIGH, eventCount + 1));
+			eventCount++;
+			out = HIGH;
 		}
 	}
-	if (tempIn1 == HIGH || tempIn2 == HIGH) {
-		if (tempIn1 == UND || tempIn2 == UND) {
-			output->setState(UND);
+	else if(input1->getState() == LOW || input2->getState() == LOW){
+		if (out != LOW) {
+			q.push(Event(output, currentTime + delay, LOW, eventCount+1));
+			eventCount++;
+			out = LOW;
+		}
+	}
+	if (input1->getState() == UND && input2->getState() == UND) {
+		if (out != UND) {
+			q.push(Event(output, currentTime + delay, UND, eventCount+1));
+			eventCount++;
+			out = UND;
 		}
 	}
 }
@@ -53,19 +66,30 @@ Or::Or(int d, Wire *in1, Wire *in2, Wire *out):Gate(d,in1,in2,out) {
 	//All in Base Init
 }
 
-void Or::setOutput(Wire *in1, Wire *in2) {
-	State tempIn1 = in1->getState();
-	State tempIn2 = in2->getState();
+void Or::checkForUpdate(priority_queue<Event>& q, int currentTime, int &eventCount) {
+	State tempIn1 = input1->getState();
+	State tempIn2 = input2->getState();
 	if (tempIn1 == HIGH || tempIn2 == HIGH) {
-		output->setState(HIGH);
-	}
-	if (tempIn1 == LOW || tempIn2 == LOW) {
-		if (tempIn1 == UND || tempIn2 == UND) {
-			output->setState(UND);
+		if (out != HIGH) {
+			q.push(Event(output, currentTime + delay, HIGH, eventCount + 1));
+			eventCount++;
+			out = HIGH;
 		}
 	}
-	if (tempIn1 == LOW && tempIn2==LOW) {
-		output->setState(LOW);
+
+	else if (tempIn1 == UND && tempIn2 == UND) {
+		if (out != UND) {
+			q.push(Event(output, currentTime + delay, UND, eventCount + 1));
+			eventCount++;
+			out = UND;
+		}
+	}
+	else{
+		if (out != LOW) {
+			q.push(Event(output, currentTime + delay, LOW, eventCount + 1));
+			eventCount++;
+			out = LOW;
+		}
 	}
 }
 
@@ -73,19 +97,31 @@ Xor::Xor(int d, Wire *in1, Wire *in2, Wire *out):Gate(d,in1,in2,out){
 	//All in Base Init
 }
 
-void Xor::setOutput(Wire *in1, Wire *in2) {
-	State tempIn1 = in1->getState();
-	State tempIn2 = in2->getState();
+void Xor::checkForUpdate(priority_queue<Event>& q, int currentTime, int &eventCount) {
+	State tempIn1 = input1->getState();
+	State tempIn2 = input2->getState();
 	if (tempIn1 == HIGH || tempIn2 == HIGH){
 		if (tempIn1 == LOW || tempIn2 == LOW) {
-			output->setState(HIGH);
+			if (out != HIGH) {
+				q.push(Event(output, currentTime + delay, HIGH, eventCount + 1));
+				eventCount++;
+				out = HIGH;
+			}
 		}
 	}
 	else if (tempIn1 == UND || tempIn2==UND){
-		output->setState(UND);
+		if (out != UND) {
+			q.push(Event(output, currentTime + delay, UND, eventCount + 1));
+			eventCount++;
+			out = UND;
+		}
 	}
 	else if (tempIn1 == tempIn2 && tempIn1 != UND) {
-		output->setState(LOW);
+		if (out != LOW) {
+			q.push(Event(output, currentTime + delay, LOW, eventCount + 1));
+			eventCount++;
+			out = LOW;
+		}
 	}
 }
 
@@ -93,19 +129,31 @@ Xnor::Xnor(int d, Wire *in1, Wire *in2, Wire *out) :Gate(d, in1, in2, out) {
 	//All in Base Init
 }
 
-void Xnor::setOutput(Wire *in1, Wire *in2) {
-	State tempIn1 = in1->getState();
-	State tempIn2 = in2->getState();
+void Xnor::checkForUpdate(priority_queue<Event>& q, int currentTime, int &eventCount) {
+	State tempIn1 = input1->getState();
+	State tempIn2 = input2->getState();
 	if (tempIn1 == HIGH || tempIn2 == HIGH) {
 		if (tempIn1 == LOW || tempIn2 == LOW) {
-			output->setState(LOW);
+			if (out != LOW) {
+				q.push(Event(output, currentTime + delay, LOW, eventCount + 1));
+				eventCount++;
+				out = LOW;
+			}
 		}
 	}
 	else if (tempIn1 == UND || tempIn2 == UND) {
-		output->setState(UND);
+		if (out != UND) {
+			q.push(Event(output, currentTime + delay, UND, eventCount + 1));
+			eventCount++;
+			out = UND;
+		}
 	}
 	else if (tempIn1 == tempIn2 && tempIn1 != UND) {
-		output->setState(HIGH);
+		if (out != HIGH) {
+			q.push(Event(output, currentTime + delay, HIGH, eventCount + 1));
+			eventCount++;
+			out = HIGH;
+		}
 	}
 }
 
@@ -114,14 +162,22 @@ Nand::Nand(int d, Wire *in1, Wire *in2, Wire *out):Gate(d,in1,in2,out) {
 	//All in Base Init
 }
 
-void Nand::setOutput(Wire *in1, Wire *in2) {
-	State tempIn1 = in1->getState();
-	State tempIn2 = in2->getState();
+void Nand::checkForUpdate(priority_queue<Event>& q, int currentTime, int &eventCount) {
+	State tempIn1 = input1->getState();
+	State tempIn2 = input2->getState();
 	if (tempIn1 == LOW || tempIn2 == LOW) {
-		output->setState(HIGH);
+		if (out != HIGH) {
+			q.push(Event(output, currentTime + delay, HIGH, eventCount + 1));
+			eventCount++;
+			out = HIGH;
+		}
 	}
 	else {
-		output->setState(LOW);
+		if (out != LOW) {
+			q.push(Event(output, currentTime + delay, LOW, eventCount + 1));
+			eventCount++;
+			out = LOW;
+		}
 	}
 }
 
@@ -129,13 +185,21 @@ Nor::Nor(int d, Wire *in1, Wire *in2, Wire *out):Gate(d,in1,in2,out) {
 	//All in Base Init
 }
 
-void Nor::setOutput(Wire *in1, Wire *in2) {
-	State tempIn1 = in1->getState();
-	State tempIn2 = in2->getState();
+void Nor::checkForUpdate(priority_queue<Event>& q, int currentTime, int &eventCount) {
+	State tempIn1 = input1->getState();
+	State tempIn2 = input2->getState();
 	if (tempIn1 == HIGH || tempIn2 == HIGH) {
-		output->setState(LOW);
+		if (out != LOW) {
+			q.push(Event(output, currentTime + delay, LOW, eventCount + 1));
+			eventCount++;
+			out = LOW;
+		}
 	}
 	else {
-		output->setState(HIGH);
+		if (out != HIGH) {
+			q.push(Event(output, currentTime + delay, HIGH, eventCount + 1));
+			eventCount++;
+			out = HIGH;
+		}
 	}
 }

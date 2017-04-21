@@ -22,7 +22,7 @@ Wire* Event::getWire() {
 	return wire;
 }
 
-int Event::getTime() {
+int Event::getTime() const {
 	return time;
 }
 

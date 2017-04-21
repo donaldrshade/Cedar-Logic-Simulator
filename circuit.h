@@ -42,7 +42,7 @@ private:
 	//private functions to be used inside of other functions
 	void cleanString(string &s);
 	void checkForWire(int s);
-	void parseString(string input, string* s, int args);
+	void parseForGate(string input, string* s);
 };
 
 #endif

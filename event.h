@@ -22,7 +22,7 @@ public:
 	Event(Wire* w=NULL, int t=0, State s=UND, int eventCount=0);
 	
 	Wire* getWire();
-	int getTime();
+	int getTime() const ;
 	State getState();
 	int getEventCount();
 	bool friend operator<  (Event const e, Event const f);

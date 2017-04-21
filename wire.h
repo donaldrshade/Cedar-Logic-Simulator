@@ -23,12 +23,15 @@ class Wire{
 		Wire(string n = "", int num = 0);
         State getState();
 		string getName();
+		void updateHistory();
+		string getHistory();
         void setState(State s);
         void setName(string n);
     private:
         string name;
         int wireNumber;
         State state;
+		string history;
     
 };
 

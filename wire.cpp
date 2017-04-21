@@ -14,6 +14,7 @@ Wire::Wire(string n,int num){
     name = n;
 	wireNumber = num;
     state = UND;
+	history = "";
 }
 State Wire::getState(){
     return state;
@@ -23,6 +24,20 @@ void Wire::setState(State s){
 }
 string Wire::getName(){
     return name;
+}
+void Wire::updateHistory(){
+	if (state == HIGH) {
+		history += "-";
+	}
+	else if (state == LOW) {
+		history += "_";
+	}
+	else {
+		history += "X";
+	}
+}
+string Wire::getHistory(){
+	return history;
 }
 void Wire::setName(string n){
     name = n;

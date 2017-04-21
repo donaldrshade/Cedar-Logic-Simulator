@@ -18,7 +18,3 @@ Gate::Gate(int d, Wire* in1, Wire* in2, Wire* o){
 	output = o;
 	out = UND;
 }
-
-void Gate::createEvent(priority_queue<Event> &q, int currentTime){
-    
-}
