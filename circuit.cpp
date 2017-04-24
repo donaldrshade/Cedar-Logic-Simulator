@@ -28,6 +28,9 @@ void Circuit::readCircuitDescription(string f) {
 	while (getline(inputFile, input)) {
 		string keyword = input.substr(0, input.find(" "));
 		in[0] = keyword;
+		for (int i = 0; i < 5; i++) {
+			in[i] = "";
+		}
 		if (keyword == "CIRCUIT") {
 			string left = input.substr(input.find(' '));
 			cleanString(left);
@@ -64,41 +67,42 @@ void Circuit::readCircuitDescription(string f) {
 			checkForWire(stoi(in[2]));
 			checkForWire(stoi(in[3]));
 			checkForWire(stoi(in[4]));
-			gates.push_back(And(stoi(in[1]), &wires[stoi(in[2])], &wires[stoi(in[3])], &wires[stoi(in[4])]));
+			gates.push_back( new And(stoi(in[1]), &wires[stoi(in[2])], &wires[stoi(in[3])], &wires[stoi(in[4])]));
 		}
 		else if (keyword == "NAND") {
 			parseForGate(input, in);
 			checkForWire(stoi(in[2]));
 			checkForWire(stoi(in[3]));
 			checkForWire(stoi(in[4]));
-			gates.push_back(Nand(stoi(in[1]), &wires[stoi(in[2])], &wires[stoi(in[3])], &wires[stoi(in[4])]));
+			gates.push_back(new Nand(stoi(in[1]), &wires[stoi(in[2])], &wires[stoi(in[3])], &wires[stoi(in[4])]));
 		}
 		else if (keyword == "OR") {
+			parseForGate(input, in);
 			checkForWire(stoi(in[2]));
 			checkForWire(stoi(in[3]));
 			checkForWire(stoi(in[4]));
-			gates.push_back(Or(stoi(in[1]), &wires[stoi(in[2])], &wires[stoi(in[3])], &wires[stoi(in[4])]));
+			gates.push_back(new Or(stoi(in[1]), &wires[stoi(in[2])], &wires[stoi(in[3])], &wires[stoi(in[4])]));
 		}
 		else if (keyword == "NOR") {
 			parseForGate(input, in);
 			checkForWire(stoi(in[2]));
 			checkForWire(stoi(in[3]));
 			checkForWire(stoi(in[4]));
-			gates.push_back(Nor(stoi(in[1]), &wires[stoi(in[2])], &wires[stoi(in[3])], &wires[stoi(in[4])]));
+			gates.push_back(new Nor(stoi(in[1]), &wires[stoi(in[2])], &wires[stoi(in[3])], &wires[stoi(in[4])]));
 		}
 		else if (keyword == "XOR") {
 			parseForGate(input, in);
 			checkForWire(stoi(in[2]));
 			checkForWire(stoi(in[3]));
 			checkForWire(stoi(in[4]));
-			gates.push_back(Xor(stoi(in[1]), &wires[stoi(in[2])], &wires[stoi(in[3])], &wires[stoi(in[4])]));
+			gates.push_back(new Xor(stoi(in[1]), &wires[stoi(in[2])], &wires[stoi(in[3])], &wires[stoi(in[4])]));
 		}
 		else if (keyword == "XNOR") {
 			parseForGate(input, in);
 			checkForWire(stoi(in[2]));
 			checkForWire(stoi(in[3]));
 			checkForWire(stoi(in[4]));
-			gates.push_back(Xnor(stoi(in[1]), &wires[stoi(in[2])], &wires[stoi(in[3])], &wires[stoi(in[4])]));
+			gates.push_back(new Xnor(stoi(in[1]), &wires[stoi(in[2])], &wires[stoi(in[3])], &wires[stoi(in[4])]));
 		}
 		else if (keyword == "NOT") {
 			string left = input.substr(input.find(' '));
@@ -114,7 +118,7 @@ void Circuit::readCircuitDescription(string f) {
 			output = left.substr(0, left.find(' '));
 			checkForWire(stoi(input1));
 			checkForWire(stoi(output));
-			gates.push_back(Not(d, &wires[stoi(input1)],&wires[stoi(output)]));
+			gates.push_back(new Not(d, &wires[stoi(input1)],&wires[stoi(output)]));
 		}
 	}
 	inputFile.close();
@@ -129,19 +133,13 @@ void Circuit::readVectorFile(string f){
 		string keyword = input.substr(0, input.find(" "));
 		if (keyword == "INPUT") {
 			string left = input.substr(input.find(' '));
-			while (left[0] == ' ') {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			string wireName = left.substr(0, left.find(" "));
 			left = left.substr(left.find(' '));
-			while (left[0] == ' ') {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			string time = left.substr(0, left.find(" "));
 			left = left.substr(left.find(' '));
-			while (left[0] == ' ') {
-				left = left.substr(1);
-			}
+			cleanString(left);
 			string state = left.substr(0, left.find(" "));
 			int wireNum = 0;
 			while (wires[wireNum].getName() != wireName) {
@@ -171,7 +169,9 @@ void Circuit::simulate(){
 			history.push(e);
 			eventsToCome.pop();
 			for (int i=0;i < gates.size();i++) {
-				gates[i].checkForUpdate(eventsToCome, time, eventCount);
+				if (gates[i]->includesWire(w)) {
+					gates[i]->checkForUpdate(eventsToCome, time, eventCount);
+				}
 			}
 		}
 		for (std::map<int, Wire>::iterator i = wires.begin();i != wires.end();++i) {

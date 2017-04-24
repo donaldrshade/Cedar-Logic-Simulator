@@ -19,13 +19,15 @@ Date Started: April 6, 2017
 class Gate {
 public:
 
-    Gate(int d=0,Wire* in1=nullptr, Wire* in2=nullptr,Wire* out=nullptr);
-	virtual void checkForUpdate(priority_queue<Event> &q, int currentTime,int &eventCount) {};
+	Gate(int d = 0, Wire* in1 = nullptr, Wire* in2 = nullptr, Wire* out = nullptr, string t="");
+	bool includesWire(Wire*);
+	virtual void checkForUpdate(priority_queue<Event> &q, int currentTime, int &eventCount) = 0;
 
 protected:
 	Wire *input1, *input2, *output;
 	State out;
     int delay;
+	string type;
 };
 
 #endif 

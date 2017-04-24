@@ -12,13 +12,13 @@ Date Started: April 6, 2017
 #include "advancedGates.h"
 
 Not::Not(int d,Wire* in, Wire* out):Gate(d,in,NULL,out){
-	//All in Base Init
+	type = "NOT";
 }
 
 void Not::checkForUpdate(priority_queue<Event> &q, int currentTime, int &eventCount) {
 	if (input1->getState() == LOW && out != LOW) {
-		q.push(Event(output, currentTime + delay, HIGH, eventCount+1));
 		eventCount++;
+		q.push(Event(output, currentTime + delay, HIGH, eventCount));
 		out = HIGH;
 
 	}
@@ -35,7 +35,7 @@ void Not::checkForUpdate(priority_queue<Event> &q, int currentTime, int &eventCo
 }
 
 And::And(int d, Wire *in1, Wire *in2, Wire *out):Gate(d,in1,in2,out) {
-	//All in Base Init
+	type = "AND";
 }
 
 void And::checkForUpdate(priority_queue<Event>& q, int currentTime, int &eventCount){
@@ -63,7 +63,7 @@ void And::checkForUpdate(priority_queue<Event>& q, int currentTime, int &eventCo
 }
 
 Or::Or(int d, Wire *in1, Wire *in2, Wire *out):Gate(d,in1,in2,out) {
-	//All in Base Init
+	type = "OR";
 }
 
 void Or::checkForUpdate(priority_queue<Event>& q, int currentTime, int &eventCount) {
@@ -77,7 +77,7 @@ void Or::checkForUpdate(priority_queue<Event>& q, int currentTime, int &eventCou
 		}
 	}
 
-	else if (tempIn1 == UND && tempIn2 == UND) {
+	else if (tempIn1 == UND || tempIn2 == UND) {
 		if (out != UND) {
 			q.push(Event(output, currentTime + delay, UND, eventCount + 1));
 			eventCount++;
@@ -94,7 +94,7 @@ void Or::checkForUpdate(priority_queue<Event>& q, int currentTime, int &eventCou
 }
 
 Xor::Xor(int d, Wire *in1, Wire *in2, Wire *out):Gate(d,in1,in2,out){
-	//All in Base Init
+	type = "XOR";
 }
 
 void Xor::checkForUpdate(priority_queue<Event>& q, int currentTime, int &eventCount) {
@@ -126,7 +126,7 @@ void Xor::checkForUpdate(priority_queue<Event>& q, int currentTime, int &eventCo
 }
 
 Xnor::Xnor(int d, Wire *in1, Wire *in2, Wire *out) :Gate(d, in1, in2, out) {
-	//All in Base Init
+	type = "XNOR";
 }
 
 void Xnor::checkForUpdate(priority_queue<Event>& q, int currentTime, int &eventCount) {
@@ -159,7 +159,7 @@ void Xnor::checkForUpdate(priority_queue<Event>& q, int currentTime, int &eventC
 
 
 Nand::Nand(int d, Wire *in1, Wire *in2, Wire *out):Gate(d,in1,in2,out) {
-	//All in Base Init
+	type = "NAND";
 }
 
 void Nand::checkForUpdate(priority_queue<Event>& q, int currentTime, int &eventCount) {
@@ -182,7 +182,7 @@ void Nand::checkForUpdate(priority_queue<Event>& q, int currentTime, int &eventC
 }
 
 Nor::Nor(int d, Wire *in1, Wire *in2, Wire *out):Gate(d,in1,in2,out) {
-	//All in Base Init
+	type = "NOT";
 }
 
 void Nor::checkForUpdate(priority_queue<Event>& q, int currentTime, int &eventCount) {
