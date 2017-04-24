@@ -19,6 +19,7 @@ using namespace std;
 
 class Event{
 public:
+
 	Event(Wire* w=NULL, int t=0, State s=UND, int eventCount=0);
 	
 	Wire* getWire();
@@ -26,7 +27,7 @@ public:
 	State getState();
 	int getEventCount();
 	bool friend operator<  (Event const e, Event const f);
-	
+
 private:
     Wire* wire;
     int time;
