@@ -13,7 +13,16 @@ Date Started: April 6, 2017
 #include "circuit.h"
 
 int main(){
-	string filename = "circuit0";
+	string filename;
+	bool testing = true;
+	if (testing) {
+		filename = "circuit0";
+	}
+	else {
+		cout << "What file would you like to read from?(Filename only. No .txt or _v.txt.) ";
+		cin >> filename;
+	}
+	
     Circuit c;
     //1. parse the input file
     c.readCircuitDescription(filename);
@@ -23,4 +32,6 @@ int main(){
     c.simulate();
     //4. output the traces
     c.outputTraces();
+	string wait;
+	cin >> wait;
 }

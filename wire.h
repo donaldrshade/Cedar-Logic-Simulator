@@ -28,10 +28,11 @@ class Wire{
         void setState(State s);
         void setName(string n);
     private:
+		string history;
         string name;
         int wireNumber;
         State state;
-		string history;
+		
     
 };
 

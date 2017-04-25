@@ -16,13 +16,13 @@ Not::Not(int d,Wire* in, Wire* out):Gate(d,in,NULL,out){
 }
 
 void Not::checkForUpdate(vector<Event> &q, int currentTime, int &eventCount) {
-	if (input1->getState() == LOW && out != LOW) {
+	if (input1->getState() == LOW && out != HIGH) {
 		eventCount++;
 		q.push_back(Event(output, currentTime + delay, HIGH, eventCount));
 		out = HIGH;
 
 	}
-	else if (input1->getState() == HIGH && out != HIGH) {
+	else if (input1->getState() == HIGH && out != LOW) {
 		q.push_back(Event(output, currentTime + delay, LOW,eventCount+1));
 		eventCount++;
 		out = LOW;

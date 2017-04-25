@@ -15,8 +15,6 @@ Circuit::Circuit() {
 	name = "";
 	eventCount = 0;
 	wires[0] = Wire("NULL",0);
-	inputWires["0"] = NULL;
-	outputWires["0"] = NULL;
 }
 
 void Circuit::readCircuitDescription(string f) {
@@ -160,7 +158,8 @@ void Circuit::readVectorFile(string f) {
 
 void Circuit::simulate() {
 	int time;
-	for (time = 0; time < 61; time++) {
+	int max = 61;
+	for (time = 0; time < max; time++) {
 		for(int i = 0; i < eventsToCome.size(); i++){
 
 			if(eventsToCome[i].getTime() == time) {
@@ -177,6 +176,9 @@ void Circuit::simulate() {
 				}
 				i--;
 			}
+			if (eventsToCome.size() == 0) {
+				max = time + 3;
+			}
 		}
 		for (std::map<int, Wire>::iterator i = wires.begin();i != wires.end();++i) {
 			wires[i->first].updateHistory();
@@ -185,7 +187,14 @@ void Circuit::simulate() {
 }
 
 void Circuit::outputTraces(){
-
+	cout << endl;
+	for (std::map<string, Wire*>::iterator i = outputWires.begin(); i != outputWires.end(); i++) {
+		Wire* w = i->second;
+		string name = w->getName();
+		string history = w->getHistory();
+		cout << "Wire " << name << ": " << history<<endl;
+	}
+	
 }
 
 void Circuit::setName(string n){

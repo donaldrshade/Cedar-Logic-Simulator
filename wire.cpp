@@ -33,7 +33,7 @@ void Wire::updateHistory(){
 		history += "_";
 	}
 	else {
-		history += "X";
+		history += "x";
 	}
 }
 string Wire::getHistory(){
