@@ -177,7 +177,7 @@ void Circuit::simulate() {
 				i--;
 			}
 			if (eventsToCome.size() == 0) {
-				max = time + 3;
+				max = time + 1;
 			}
 		}
 		for (std::map<int, Wire>::iterator i = wires.begin();i != wires.end();++i) {
@@ -187,13 +187,31 @@ void Circuit::simulate() {
 }
 
 void Circuit::outputTraces(){
-	cout << endl;
+	cout << endl << "Cicuit: " << name << endl << "Wire Traces:" << endl;
+	cout << "INPUTS:" << endl;
+	for (std::map<string, Wire*>::iterator i = inputWires.begin(); i != inputWires.end(); i++) {
+		Wire* w = i->second;
+		string name = w->getName();
+		while (name.length() < 8) {
+			name += " ";
+		}
+		string history = w->getHistory();
+		cout << name << ": " << history << endl;
+	}
+	cout << "OUTPUTS:" << endl;
 	for (std::map<string, Wire*>::iterator i = outputWires.begin(); i != outputWires.end(); i++) {
 		Wire* w = i->second;
 		string name = w->getName();
+		while (name.length() < 8) {
+			name += " ";
+		}
 		string history = w->getHistory();
-		cout << "Wire " << name << ": " << history<<endl;
+		cout << name << ": " << history<<endl;
 	}
+	string outputHelp = "          0    5    0    5    0    5    0    5    0    5    0    5    0";
+	outputHelp = outputHelp.substr(0, 10 + (wires[0].getHistory()).length());
+	cout << outputHelp <<endl
+		;
 	
 }
 

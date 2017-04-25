@@ -10,6 +10,7 @@ Date Started: April 6, 2017
 */
 
 #include "advancedGates.h"
+#include <vector>
 
 Not::Not(int d,Wire* in, Wire* out):Gate(d,in,NULL,out){
 	type = "NOT";

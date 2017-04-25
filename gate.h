@@ -13,6 +13,7 @@ Date Started: April 6, 2017
 #define gate_h
 
 #include <iostream>
+#include <vector>
 #include "event.h"
 #include "wire.h"
 

@@ -14,7 +14,6 @@ Date Started: April 6, 2017
 #include "wire.h"
 
 #include <iostream>
-#include <queue>
 using namespace std;
 
 class Event{
