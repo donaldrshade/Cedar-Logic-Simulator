@@ -36,8 +36,8 @@ private:
 	map <string, Wire*> outputWires;
 	map <int,    Wire>  wires;
 	vector <Gate*> gates;
-	std::priority_queue <Event> eventsToCome;
-	std::priority_queue <Event> history;
+	vector <Event> eventsToCome;
+	vector <Event> history;
 	int eventCount;
 	//private functions to be used inside of other functions
 	void cleanString(string &s);

@@ -39,7 +39,7 @@ bool operator< (Event const e, Event const f) {
 	if (e.time < f.time) {
 		isTrue = false;
 	}
-	else if (e.eventCount < f.eventCount) {
+	if (e.eventCount > f.eventCount) {
 		isTrue = false;
 	}
 	return isTrue;

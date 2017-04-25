@@ -21,7 +21,7 @@ public:
 
 	Gate(int d = 0, Wire* in1 = nullptr, Wire* in2 = nullptr, Wire* out = nullptr, string t="");
 	bool includesWire(Wire*);
-	virtual void checkForUpdate(priority_queue<Event> &q, int currentTime, int &eventCount) = 0;
+	virtual void checkForUpdate(vector<Event> &q, int currentTime, int &eventCount) = 0;
 
 protected:
 	Wire *input1, *input2, *output;

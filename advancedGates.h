@@ -18,42 +18,42 @@ Date Started: April 6, 2017
 class Not:public Gate{
 public:
 	Not(int d, Wire* input, Wire* output);
-	void checkForUpdate(priority_queue<Event>& q, int currentTime, int &eventCount);
+	void checkForUpdate(vector<Event>& q, int currentTime, int &eventCount);
 };
 
 class And:public Gate{
 public:
 	And(int d, Wire *in1, Wire *in2, Wire *out);
-	void checkForUpdate(priority_queue<Event>& q, int currentTime, int &eventCount);
+	void checkForUpdate(vector<Event>& q, int currentTime, int &eventCount);
 };
 
 class Or:public Gate{
 public:
 	Or(int d, Wire *in1, Wire *in2, Wire *out);
-	void checkForUpdate(priority_queue<Event>& q, int currentTime, int &eventCount);
+	void checkForUpdate(vector<Event>& q, int currentTime, int &eventCount);
 };
 
 class Xor:public Gate{
 public:
 	Xor(int d, Wire *in1, Wire *in2, Wire *out);
-	void checkForUpdate(priority_queue<Event>& q, int currentTime, int &eventCount);
+	void checkForUpdate(vector<Event>& q, int currentTime, int &eventCount);
 };
 
 class Nand :public Gate {
 public:
 	Nand(int d, Wire *in1, Wire *in2, Wire *out);
-	void checkForUpdate(priority_queue<Event>& q, int currentTime, int &eventCount);
+	void checkForUpdate(vector<Event>& q, int currentTime, int &eventCount);
 };
 
 class Nor :public Gate {
 public:
 	Nor(int d, Wire *in1, Wire *in2, Wire *out);
-	void checkForUpdate(priority_queue<Event>& q, int currentTime, int &eventCount);
+	void checkForUpdate(vector<Event>& q, int currentTime, int &eventCount);
 };
 
 class Xnor :public Gate {
 public:
 	Xnor(int d, Wire *in1, Wire *in2, Wire *out);
-	void checkForUpdate(priority_queue<Event>& q, int currentTime, int &eventCount);
+	void checkForUpdate(vector<Event>& q, int currentTime, int &eventCount);
 };
 #endif

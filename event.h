@@ -29,8 +29,8 @@ public:
 	bool friend operator<  (Event const e, Event const f);
 
 private:
+	int time;
     Wire* wire;
-    int time;
     State state;
     int eventCount;
     

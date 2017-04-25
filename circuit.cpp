@@ -67,7 +67,7 @@ void Circuit::readCircuitDescription(string f) {
 			checkForWire(stoi(in[2]));
 			checkForWire(stoi(in[3]));
 			checkForWire(stoi(in[4]));
-			gates.push_back( new And(stoi(in[1]), &wires[stoi(in[2])], &wires[stoi(in[3])], &wires[stoi(in[4])]));
+			gates.push_back(new And(stoi(in[1]), &wires[stoi(in[2])], &wires[stoi(in[3])], &wires[stoi(in[4])]));
 		}
 		else if (keyword == "NAND") {
 			parseForGate(input, in);
@@ -118,13 +118,13 @@ void Circuit::readCircuitDescription(string f) {
 			output = left.substr(0, left.find(' '));
 			checkForWire(stoi(input1));
 			checkForWire(stoi(output));
-			gates.push_back(new Not(d, &wires[stoi(input1)],&wires[stoi(output)]));
+			gates.push_back(new Not(d, &wires[stoi(input1)], &wires[stoi(output)]));
 		}
 	}
 	inputFile.close();
 }
 
-void Circuit::readVectorFile(string f){
+void Circuit::readVectorFile(string f) {
 	string filename = f + "_v.txt";
 	ifstream vectorFile;
 	vectorFile.open(filename);
@@ -152,26 +152,30 @@ void Circuit::readVectorFile(string f){
 			if (state == "1") {
 				s = HIGH;
 			}
-			eventsToCome.push(Event(&wires[wireNum], stoi(time), s, eventCount));
+			eventsToCome.push_back(Event(&wires[wireNum], stoi(time), s, eventCount));
 			eventCount++;
 		}
 	}
 }
 
-void Circuit::simulate(){
+void Circuit::simulate() {
 	int time;
 	for (time = 0; time < 61; time++) {
-		while (!eventsToCome.empty() && (eventsToCome.top()).getTime() == time) {
-			Event e = eventsToCome.top();
-			Wire* w = e.getWire();
-			State s = e.getState();
-			w->setState(s);
-			history.push(e);
-			eventsToCome.pop();
-			for (int i=0;i < gates.size();i++) {
-				if (gates[i]->includesWire(w)) {
-					gates[i]->checkForUpdate(eventsToCome, time, eventCount);
+		for(int i = 0; i < eventsToCome.size(); i++){
+
+			if(eventsToCome[i].getTime() == time) {
+				Event e = eventsToCome[i];
+				Wire* w = e.getWire();
+				State s = e.getState();
+				w->setState(s);
+				history.push_back(e);
+				eventsToCome.erase(eventsToCome.begin() + i);
+				for (int i = 0; i < gates.size(); i++) {
+					if (gates[i]->includesWire(w)) {
+						gates[i]->checkForUpdate(eventsToCome, time, eventCount);
+					}
 				}
+				i--;
 			}
 		}
 		for (std::map<int, Wire>::iterator i = wires.begin();i != wires.end();++i) {
