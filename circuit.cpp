@@ -36,15 +36,16 @@ void Circuit::readCircuitDescription(string f) {
 		}
 		else if (keyword == "INPUT") {
 			//create an input
+			//finds whats left
 			string left = input.substr(input.find(' '));
+			cleanString(left);//removes starting spaces
+			string wireName = left.substr(0, left.find(' '));//finds the name
+			left = left.substr(left.find(' '));//gets past the name
 			cleanString(left);
-			string wireName = left.substr(0, left.find(' '));
-			left = left.substr(left.find(' '));
-			cleanString(left);
-			int wireNum = stoi(left);
+			int wireNum = stoi(left);//gets the wire num
 
-			wires[wireNum] = Wire(wireName, wireNum);
-			inputWires[wireName] = &wires[wireNum];
+			wires[wireNum] = Wire(wireName, wireNum);//adds new wire
+			inputWires[wireName] = &wires[wireNum];//adds a pointer to the new wire to inputWires
 
 		}
 		else if (keyword == "OUTPUT") {
@@ -61,10 +62,13 @@ void Circuit::readCircuitDescription(string f) {
 		
 		}
 		else if (keyword == "AND") {
+			//reads in the data
 			parseForGate(input, in);
+			//checks for the wires
 			checkForWire(stoi(in[2]));
 			checkForWire(stoi(in[3]));
 			checkForWire(stoi(in[4]));
+			//adds the gate
 			gates.push_back(new And(stoi(in[1]), &wires[stoi(in[2])], &wires[stoi(in[3])], &wires[stoi(in[4])]));
 		}
 		else if (keyword == "NAND") {
