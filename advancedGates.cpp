@@ -173,17 +173,22 @@ void Nand::checkForUpdate(vector<Event>& q, int currentTime, int &eventCount) {
 			out = HIGH;
 		}
 	}
-	else {
+	else if (tempIn1 == HIGH && tempIn2 == HIGH) {
 		if (out != LOW) {
 			q.push_back(Event(output, currentTime + delay, LOW, eventCount + 1));
 			eventCount++;
 			out = LOW;
 		}
 	}
+	else {
+		q.push_back(Event(output, currentTime + delay, UND, eventCount + 1));
+		eventCount++;
+		out = UND;
+	}
 }
 
 Nor::Nor(int d, Wire *in1, Wire *in2, Wire *out):Gate(d,in1,in2,out) {
-	type = "NOT";
+	type = "NOR";
 }
 
 void Nor::checkForUpdate(vector<Event>& q, int currentTime, int &eventCount) {
@@ -196,11 +201,16 @@ void Nor::checkForUpdate(vector<Event>& q, int currentTime, int &eventCount) {
 			out = LOW;
 		}
 	}
-	else {
+	else if (tempIn1 == LOW && tempIn2 == LOW) {
 		if (out != HIGH) {
 			q.push_back(Event(output, currentTime + delay, HIGH, eventCount + 1));
 			eventCount++;
 			out = HIGH;
 		}
+	}
+	else {
+		q.push_back(Event(output, currentTime + delay, UND, eventCount + 1));
+		eventCount++;
+		out = UND;
 	}
 }
