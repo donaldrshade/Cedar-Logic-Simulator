@@ -11,38 +11,23 @@ Date Started: April 6, 2017
 
 #include "gate.h"
 
-Gate::Gate(int d){
-    delay = d;
+Gate::Gate(int d, Wire* in1, Wire* in2, Wire* o,string t){
+	delay = d;
+	input1 = in1;
+	input2 = in2;
+	output = o;
+	out = UND;
+	type = t;
 }
 
-void Gate::setInput1(Wire* in1) {
-	input1->setState(in1->getState());
-}
-
-void Gate::setInput2(Wire *in2) {
-	input2->setState(in2->getState());
-}
-
-void Gate::setDelay(int d){
-    delay = d;
-}
-
-State Gate::getOutputState() {
-	return output->getState();
-}
-
-State Gate::getInput1State() {
-	return input1->getState();
-}
-
-State Gate::getInput2State() {
-	return input2->getState();
-}
-
-int Gate::getDelay(){
-    return delay;
-}
-
-void Gate::createEvent(queue<int*> q, int currentTime){
-    
+bool Gate::includesWire(Wire *wired){//This function checks and sees if the gate contains the wire
+	if (wired == input1) {
+		return true;
+	}
+	else if (wired == input2) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }

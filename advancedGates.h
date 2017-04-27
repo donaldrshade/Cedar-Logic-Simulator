@@ -17,25 +17,43 @@ Date Started: April 6, 2017
 
 class Not:public Gate{
 public:
-	Not(Wire* input = nullptr, Wire* output = nullptr);
-	void setOutput(Wire* in);};
+	Not(int d, Wire* input, Wire* output);
+	void checkForUpdate(vector<Event>& q, int currentTime, int &eventCount);
+};
 
 class And:public Gate{
 public:
-	And(Wire *in1 = nullptr, Wire *in2 = nullptr, Wire *out = nullptr);
-	void setOutput(Wire * in1, Wire * in2);
+	And(int d, Wire *in1, Wire *in2, Wire *out);
+	void checkForUpdate(vector<Event>& q, int currentTime, int &eventCount);
 };
 
 class Or:public Gate{
 public:
-	Or(Wire *in1 = nullptr, Wire *in2 = nullptr, Wire *out = nullptr);
-	void setOutput(Wire *in1, Wire *in2);
+	Or(int d, Wire *in1, Wire *in2, Wire *out);
+	void checkForUpdate(vector<Event>& q, int currentTime, int &eventCount);
 };
 
 class Xor:public Gate{
 public:
-	Xor(Wire *in1 = nullptr, Wire *in2 = nullptr, Wire *out = nullptr);
-	void setOutput(Wire *in1, Wire *in2);
+	Xor(int d, Wire *in1, Wire *in2, Wire *out);
+	void checkForUpdate(vector<Event>& q, int currentTime, int &eventCount);
 };
 
+class Nand :public Gate {
+public:
+	Nand(int d, Wire *in1, Wire *in2, Wire *out);
+	void checkForUpdate(vector<Event>& q, int currentTime, int &eventCount);
+};
+
+class Nor :public Gate {
+public:
+	Nor(int d, Wire *in1, Wire *in2, Wire *out);
+	void checkForUpdate(vector<Event>& q, int currentTime, int &eventCount);
+};
+
+class Xnor :public Gate {
+public:
+	Xnor(int d, Wire *in1, Wire *in2, Wire *out);
+	void checkForUpdate(vector<Event>& q, int currentTime, int &eventCount);
+};
 #endif

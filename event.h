@@ -14,15 +14,21 @@ Date Started: April 6, 2017
 #include "wire.h"
 
 #include <iostream>
-#include <queue>
+using namespace std;
 
 class Event{
 public:
-	Event(Wire* w, int t, State s, int eventCount);
-	friend bool operator< (Event &e, Event &f);
+
+	Event(Wire* w=NULL, int t=0, State s=UND, int eventCount=0);
+	
+	Wire* getWire();
+	int getTime() const ;
+	State getState();
+	int getEventCount();
+
 private:
+	int time;
     Wire* wire;
-    int t;
     State state;
     int eventCount;
     

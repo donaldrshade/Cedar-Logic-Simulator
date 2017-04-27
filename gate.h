@@ -13,27 +13,22 @@ Date Started: April 6, 2017
 #define gate_h
 
 #include <iostream>
+#include <vector>
 #include "event.h"
 #include "wire.h"
 
 class Gate {
 public:
-    Gate(int d=0);
-	void setInput1(Wire *in);
-	void setInput2(Wire *in);
-    void setDelay(int d);
-	void createEvent(queue<int*> q, int currentTime);
 
-    int getDelay();
-    int getCreationCount();
-    State getOutputState();
-	State getInput1State();
-	State getInput2State();
+	Gate(int d = 0, Wire* in1 = nullptr, Wire* in2 = nullptr, Wire* out = nullptr, string t="");
+	bool includesWire(Wire*);
+	virtual void checkForUpdate(vector<Event> &q, int currentTime, int &eventCount) = 0;
 
 protected:
-	virtual void setOutput() = 0;
 	Wire *input1, *input2, *output;
+	State out;
     int delay;
+	string type;
 };
 
 #endif 

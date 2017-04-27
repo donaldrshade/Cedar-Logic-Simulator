@@ -1,0 +1,4 @@
+﻿  Source.cpp
+c:\users\jacobwaynemoore\source\repos\uninterestingname\project2\project2\source.cpp(10): warning C4806: '==': unsafe operation: no value of type 'bool' promoted to type 'int' can equal the given constant
+  Project2.vcxproj -> C:\Users\jacobwaynemoore\Source\Repos\UninterestingName\Project2\Debug\Project2.exe
+  Project2.vcxproj -> C:\Users\jacobwaynemoore\Source\Repos\UninterestingName\Project2\Debug\Project2.pdb (Partial PDB)

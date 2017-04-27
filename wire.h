@@ -20,15 +20,19 @@ enum State {HIGH, UND, LOW};
 
 class Wire{
     public:
-        Wire(string n= "");
+		Wire(string n = "", int num = 0);
         State getState();
+		string getName();
+		void updateHistory();
+		string getHistory();
         void setState(State s);
-        string getName();
         void setName(string n);
     private:
+		string history;
         string name;
-        int index;
+        int wireNumber;
         State state;
+		
     
 };
 

@@ -13,11 +13,14 @@ Date Started: April 6, 2017
 #define circuit_h
 
 #include <iostream>
-#include "gate.h"
-#include "wire.h"
+#include <vector>
+#include <map>
+#include "advancedGates.h"
+
 
 class Circuit{
 public:
+	Circuit();
 	//main code functions
     void readCircuitDescription(string f);
     void readVectorFile(string f);
@@ -26,10 +29,20 @@ public:
 	//subfunctions
 	void setName(string n);
 
+
 private:
 	string name;
-
-
+	map <string, Wire*> inputWires;
+	map <string, Wire*> outputWires;
+	map <int,    Wire>  wires;
+	vector <Gate*> gates;
+	vector <Event> eventsToCome;
+	vector <Event> history;
+	int eventCount;
+	//private functions to be used inside of other functions
+	void cleanString(string &s);
+	void checkForWire(int s);
+	void parseForGate(string input, string* s);
 };
 
 #endif

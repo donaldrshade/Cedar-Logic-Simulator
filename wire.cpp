@@ -10,9 +10,11 @@ Date Started: April 6, 2017
 */
 
 #include "wire.h"
-Wire::Wire(string n= ""){
+Wire::Wire(string n,int num){
     name = n;
+	wireNumber = num;
     state = UND;
+	history = "";
 }
 State Wire::getState(){
     return state;
@@ -23,7 +25,20 @@ void Wire::setState(State s){
 string Wire::getName(){
     return name;
 }
+void Wire::updateHistory(){//this function takes the current state and adds to the history string stored with it
+	if (state == HIGH) {
+		history += "-";
+	}
+	else if (state == LOW) {
+		history += "_";
+	}
+	else {
+		history += "x";
+	}
+}
+string Wire::getHistory(){
+	return history;
+}
 void Wire::setName(string n){
     name = n;
 }
-//future edit
