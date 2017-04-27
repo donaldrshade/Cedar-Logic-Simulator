@@ -20,7 +20,7 @@ Gate::Gate(int d, Wire* in1, Wire* in2, Wire* o,string t){
 	type = t;
 }
 
-bool Gate::includesWire(Wire *wired){
+bool Gate::includesWire(Wire *wired){//This function checks and sees if the gate contains the wire
 	if (wired == input1) {
 		return true;
 	}

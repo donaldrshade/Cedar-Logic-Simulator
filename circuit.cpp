@@ -11,7 +11,7 @@ Date Started: April 6, 2017
 #include "circuit.h"
 #include <fstream>
 
-Circuit::Circuit() {
+Circuit::Circuit() {//basic contructor
 	name = "";
 	eventCount = 0;
 	wires[0] = Wire("NULL",0);
@@ -131,6 +131,7 @@ void Circuit::readVectorFile(string f) {
 	ifstream vectorFile;
 	vectorFile.open(filename);
 	string input;
+	//while there is more inputs it will create them
 	while (getline(vectorFile, input)) {
 		string keyword = input.substr(0, input.find(" "));
 		if (keyword == "INPUT") {
@@ -144,6 +145,7 @@ void Circuit::readVectorFile(string f) {
 			cleanString(left);
 			string state = left.substr(0, left.find(" "));
 			int wireNum = 0;
+			//finds which wire it is so we can use the appropriate wirenum
 			while (wires[wireNum].getName() != wireName) {
 				wireNum++;
 			}
@@ -154,6 +156,7 @@ void Circuit::readVectorFile(string f) {
 			if (state == "1") {
 				s = HIGH;
 			}
+			//push the event onto the vector
 			eventsToCome.push_back(Event(&wires[wireNum], stoi(time), s, eventCount));
 			eventCount++;
 		}
@@ -173,19 +176,20 @@ void Circuit::simulate() {
 				w->setState(s);
 				history.push_back(e);
 				eventsToCome.erase(eventsToCome.begin() + i);
-				for (int i = 0; i < gates.size(); i++) {
+
+				for (int i = 0; i < gates.size(); i++) {//checks for updates in each gate
 					if (gates[i]->includesWire(w)) {
 						gates[i]->checkForUpdate(eventsToCome, time, eventCount);
 					}
 				}
 				i--;
 			}
-			if (eventsToCome.size() == 0) {
+			if (eventsToCome.size() == 0) {//reduces max so we stop
 				max = time + 1;
 			}
 		}
 		for (std::map<int, Wire>::iterator i = wires.begin();i != wires.end();++i) {
-			wires[i->first].updateHistory();
+			wires[i->first].updateHistory();//updates all the wires history
 		}
 	}
 }
@@ -193,7 +197,7 @@ void Circuit::simulate() {
 void Circuit::outputTraces(){
 	cout << endl << "Cicuit: " << name << endl << "Wire Traces:" << endl;
 	cout << "INPUTS:" << endl;
-	for (std::map<string, Wire*>::iterator i = inputWires.begin(); i != inputWires.end(); i++) {
+	for (std::map<string, Wire*>::iterator i = inputWires.begin(); i != inputWires.end(); i++) {//grabs the inputs
 		Wire* w = i->second;
 		string name = w->getName();
 		while (name.length() < 8) {
@@ -203,7 +207,7 @@ void Circuit::outputTraces(){
 		cout << name << ": " << history << endl;
 	}
 	cout << "OUTPUTS:" << endl;
-	for (std::map<string, Wire*>::iterator i = outputWires.begin(); i != outputWires.end(); i++) {
+	for (std::map<string, Wire*>::iterator i = outputWires.begin(); i != outputWires.end(); i++) {//grabs the outputs
 		Wire* w = i->second;
 		string name = w->getName();
 		while (name.length() < 8) {
@@ -212,8 +216,8 @@ void Circuit::outputTraces(){
 		string history = w->getHistory();
 		cout << name << ": " << history<<endl;
 	}
-	string outputHelp = "          0    5    0    5    0    5    0    5    0    5    0    5    0";
-	outputHelp = outputHelp.substr(0, 10 + (wires[0].getHistory()).length());
+	string outputHelp = "          0    5    0    5    0    5    0    5    0    5    0    5    0";//helps for pretty printing
+	outputHelp = outputHelp.substr(0, 10 + (wires[0].getHistory()).length());//makes it the right length
 	cout << outputHelp <<endl
 		;
 	
@@ -223,14 +227,14 @@ void Circuit::setName(string n){
 	name = n;
 }
 
-void Circuit::cleanString(string & s){
+void Circuit::cleanString(string & s){//this function removes all the spaces from the beginning of a string
 	while (s[0] == ' ') {
 		s = s.substr(1);
 	}
 }
 
 
-void Circuit::checkForWire(int s){
+void Circuit::checkForWire(int s){//makes sure a wire exists before is is added elsewhere
 	try {
 		Wire test = wires.at(s);
 	}
@@ -239,7 +243,7 @@ void Circuit::checkForWire(int s){
 	}
 }
 
-void Circuit::parseForGate(string input, string* s){
+void Circuit::parseForGate(string input, string* s){//puts read in material into the appropriate slots so the others can read it out
 	string left = input.substr(input.find(' '));
 	cleanString(left);
 	s[1] = left.substr(0, left.find("ns"));

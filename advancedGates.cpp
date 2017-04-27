@@ -3,7 +3,8 @@ Project Name: Digital Logic Simulator (Term Project)
 Contributors: Jacob Moore and Donald Shade
 Date Started: April 6, 2017
 File Name: advancedGates.cpp
-File Purpose: To define various derived gate classes
+File Purpose: To define various derived gate classes 
+These individual classes set the logic behind each gate
 Date Started: April 6, 2017
 
 
@@ -18,8 +19,8 @@ Not::Not(int d,Wire* in, Wire* out):Gate(d,in,NULL,out){
 
 void Not::checkForUpdate(vector<Event> &q, int currentTime, int &eventCount) {
 	if (input1->getState() == LOW && out != HIGH) {
+		q.push_back(Event(output, currentTime + delay, HIGH, eventCount+1));
 		eventCount++;
-		q.push_back(Event(output, currentTime + delay, HIGH, eventCount));
 		out = HIGH;
 
 	}

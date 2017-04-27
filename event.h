@@ -25,7 +25,6 @@ public:
 	int getTime() const ;
 	State getState();
 	int getEventCount();
-	bool friend operator<  (Event const e, Event const f);
 
 private:
 	int time;

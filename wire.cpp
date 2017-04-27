@@ -25,7 +25,7 @@ void Wire::setState(State s){
 string Wire::getName(){
     return name;
 }
-void Wire::updateHistory(){
+void Wire::updateHistory(){//this function takes the current state and adds to the history string stored with it
 	if (state == HIGH) {
 		history += "-";
 	}
@@ -42,4 +42,3 @@ string Wire::getHistory(){
 void Wire::setName(string n){
     name = n;
 }
-//future edit

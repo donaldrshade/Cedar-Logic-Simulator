@@ -33,16 +33,3 @@ State Event::getState() {
 int Event::getEventCount() {
 	return eventCount;
 }
-
-bool operator< (Event const e, Event const f) {
-	bool isTrue = true;
-	if (e.time < f.time) {
-		isTrue = false;
-	}
-	if (e.eventCount > f.eventCount) {
-		isTrue = false;
-	}
-	return isTrue;
-
-}
-
